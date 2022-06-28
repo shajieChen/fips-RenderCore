@@ -1,0 +1,121 @@
+#
+# project: fips-RenderCore
+#
+if (NOT FIPS_IMPORT)
+    cmake_minimum_required(VERSION 3.0)
+	get_filename_component(FIPS_ROOT_DIR "../fips" ABSOLUTE)
+	include("${FIPS_ROOT_DIR}/cmake/fips.cmake")
+	fips_setup()
+    fips_project(fips-RenderCore)
+endif()
+
+
+fips_begin_lib(RenderGraphic)
+	fips_vs_disable_warnings(4312)
+	fips_dir(RenderCore)
+	fips_files(
+		plugins                            
+		AABB.cpp                           
+		AABB.hpp                           
+		Buffer.hpp                         
+		BufferedStream.hpp                 
+		CatmullRomInterpolator.hpp         
+		checks.hpp                         
+		Collection.hpp                     
+		Colors.hpp                         
+		config.hpp.in    
+		config.hpp                  
+		CRC32CheckSum.hpp                  
+		DiskDirectory.cpp                  
+		DiskDirectory.hpp                  
+		DiskFile.cpp                       
+		DiskFile.hpp                       
+		FileSystem.cpp                     
+		FileSystem.hpp                     
+		Flags.hpp                          
+		GlobalSettings.cpp                 
+		GlobalSettings.hpp                 
+		glsl_math.hpp                      
+		GZipCodec.cpp                      
+		GZipCodec.hpp                      
+		half.hpp                           
+		Image.cpp                          
+		Image.hpp                          
+		ImageTools.hpp                     
+		IMutex.hpp                         
+		Interpolator.hpp                   
+		KeyValues.cpp                      
+		KeyValues.hpp                      
+		LinearInterpolator.hpp             
+		link_config.hpp                    
+		LoadWriterManager.cpp              
+		LoadWriterManager.hpp              
+		Log.cpp                            
+		Log.hpp                            
+		math_utils.cpp                     
+		math_utils.hpp                     
+		Matrix2.hpp                        
+		Matrix3.hpp                        
+		Matrix4.hpp                        
+		MD5CheckSum.cpp                    
+		MD5CheckSum.hpp                    
+		MemoryDirectory.cpp                
+		MemoryDirectory.hpp                
+		MemoryFile.cpp                     
+		MemoryFile.hpp                     
+		MersenneTwister.hpp                
+		MurmurHash3.cpp                    
+		MurmurHash3.hpp                    
+		Object.cpp                         
+		Object.hpp                         
+		OpenGLDefs.hpp                     
+		pimpl.cpp                          
+		Plane.cpp                          
+		Plane.hpp                          
+		Quaternion.hpp                     
+		Random.cpp                         
+		Random.hpp                         
+		Ray.hpp                            
+		Rect.hpp                           
+		ResourceDatabase.cpp               
+		ResourceDatabase.hpp               
+		ResourceLoadWriter.hpp             
+		Say.cpp                            
+		Say.hpp                            
+		ScopedMutex.hpp                    
+		SignalSlot.hpp                     
+		SignalSlotX.hpp                    
+		Sphere.hpp                         
+		std_types.hpp                      
+		String.cpp                         
+		String.hpp                         
+		String_Tables.hpp                  
+		TextStream.cpp                     
+		TextStream.hpp                     
+		Time.cpp                           
+		Time.hpp                           
+		Transform.cpp                      
+		Transform.hpp                      
+		TypeInfo.hpp                       
+		UUID.cpp                           
+		UUID.hpp                           
+		Vector2.hpp                        
+		Vector3.hpp                        
+		Vector4.hpp                        
+		VirtualDirectory.cpp               
+		VirtualDirectory.hpp               
+		VirtualFile.cpp                    
+		VirtualFile.hpp                    
+		VisualizationLibrary.hpp           
+		vlnamespace.hpp                    
+		ZippedDirectory.cpp                
+		ZippedDirectory.hpp                
+		ZippedFile.cpp                     
+		ZippedFile.hpp          
+    	)
+fips_end_lib() 
+
+
+if (NOT FIPS_IMPORT)
+    fips_finish()
+endif()
