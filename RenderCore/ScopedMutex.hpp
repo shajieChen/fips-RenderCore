@@ -32,7 +32,7 @@
 #ifndef ScopedMutex_INCLUDE_ONCE
 #define ScopedMutex_INCLUDE_ONCE
 
-#include <vlCore/IMutex.hpp>
+#include "IMutex.hpp"
 
 namespace vl
 {

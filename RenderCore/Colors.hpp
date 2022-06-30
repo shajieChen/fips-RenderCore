@@ -34,7 +34,7 @@
 
 // for more colors see: http://en.wikipedia.org/wiki/List_of_colors
 
-#include <vlCore/Vector4.hpp>
+#include "Vector4.hpp"
 
 namespace vl
 {

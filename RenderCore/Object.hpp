@@ -33,9 +33,10 @@
 #define Object_INCLUDE_ONCE
 
 #include "checks.hpp"
-#include <vlCore/IMutex.hpp>
-#include <vlCore/TypeInfo.hpp>
+#include "IMutex.hpp"
+#include "TypeInfo.hpp"
 #include <string>
+#include "Core/Log.h"
 
 #if VL_DEBUG_LIVING_OBJECTS
   #include <set>
@@ -155,7 +156,7 @@ namespace vl
    * The base class for all the reference counted objects.
    * See also vl::ref.
   */
-  class VLCORE_EXPORT Object
+  class /*VLCORE_EXPORT*/ Object
   {
     VL_INSTRUMENT_BASE_CLASS(vl::Object)
 

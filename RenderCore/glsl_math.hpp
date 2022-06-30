@@ -86,8 +86,8 @@ v = vl::clamp(v, vl::fvec4(1,2,3,4), vl::fvec4(5,6,7,8));
 
 #include <cmath>
 #include <limits>
-#include <vlCore/Vector4.hpp>
-#include <vlCore/Matrix4.hpp>
+#include "Vector4.hpp"
+#include "Matrix4.hpp"
 
 #undef min
 #undef max

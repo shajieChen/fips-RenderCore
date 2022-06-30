@@ -32,14 +32,16 @@
 #ifndef KeyValues_INCLUDE_ONCE
 #define KeyValues_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
-#include <vlCore/String.hpp>
+#include "Object.hpp"
+//#include "String.hpp"
+#include "Core/String/String.h"
 #include <map>
-
+#include <vector>
+using namespace Oryol; 
 namespace vl
 {
   //! A set of key/value pairs usually used to associate generic information, tags, attributes etc. to another class.
-  class VLCORE_EXPORT KeyValues: public Object
+  class /*VLCORE_EXPORT*/ KeyValues : public Object
   {
     VL_INSTRUMENT_CLASS(vl::KeyValues, Object)
 

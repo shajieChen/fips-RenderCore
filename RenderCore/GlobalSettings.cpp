@@ -29,83 +29,83 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/GlobalSettings.hpp>
+#include "GlobalSettings.hpp"
 #include <cstdlib>
 #include <cstdio>
 
 using namespace vl;
 
 //-----------------------------------------------------------------------------
-GlobalSettings::GlobalSettings()
-{
-  VL_DEBUG_SET_OBJECT_NAME()
-
-  #ifndef NDEBUG
-    mVerbosityLevel  = vl::VEL_VERBOSITY_DEBUG;
-    mCheckOpenGLStates = true;
-  #else
-    mVerbosityLevel  = vl::VEL_VERBOSITY_ERROR;
-    mCheckOpenGLStates = false;
-  #endif
-
-  // initialize from environment variables
-
-  char* val = NULL;
-
-  // log file
-
-  val = getenv("VL_LOGFILE_PATH");
-  if (val)
-    mDefaultLogPath = val;
-  else
-    mDefaultLogPath = "log.txt";
-
-  // data path
-
-  val = getenv("VL_DATA_PATH");
-  if (val)
-    mDefaultDataPath = val;
-  else
-    mDefaultDataPath = "../data";
-
-  // verbosity level
-
-  val = getenv("VL_VERBOSITY_LEVEL");
-  if (val)
-  {
-    if ( String(val).toUpperCase() == "SILENT")
-      setVerbosityLevel(vl::VEL_VERBOSITY_SILENT);
-    else
-    if ( String(val).toUpperCase() == "ERROR")
-      setVerbosityLevel(vl::VEL_VERBOSITY_ERROR);
-    else
-    if ( String(val).toUpperCase() == "NORMAL")
-      setVerbosityLevel(vl::VEL_VERBOSITY_NORMAL);
-    else
-    if ( String(val).toUpperCase() == "DEBUG")
-      setVerbosityLevel(vl::VEL_VERBOSITY_DEBUG);
-    else
-    {
-      // no log here yet.
-      fprintf(stderr,"VL_VERBOSITY_LEVEL variable has unknown value %s! Legal values: SILENT, ERROR, NORMAL, DEBUG\n\n", val);
-    }
-  }
-
-  // opengl state checks
-
-  val = getenv("VL_CHECK_GL_STATES");
-  if (val)
-  {
-    if ( String(val).toUpperCase() == "YES" )
-      setCheckOpenGLStates(true);
-    else
-    if ( String(val).toUpperCase() == "NO" )
-      setCheckOpenGLStates(false);
-    else
-    {
-      // no log here yet.
-      fprintf(stderr,"VL_CHECK_GL_STATES variable has unknown value '%s'! Legal values: YES, NO.\n\n", val);
-    }
-  }
-}
+//GlobalSettings::GlobalSettings()
+//{
+//  VL_DEBUG_SET_OBJECT_NAME()
+//
+//  #ifndef NDEBUG
+//    mVerbosityLevel  = vl::VEL_VERBOSITY_DEBUG;
+//    mCheckOpenGLStates = true;
+//  #else
+//    mVerbosityLevel  = vl::VEL_VERBOSITY_ERROR;
+//    mCheckOpenGLStates = false;
+//  #endif
+//
+//  // initialize from environment variables
+//
+//  char* val = NULL;
+//
+//  // log file
+//
+//  val = getenv("VL_LOGFILE_PATH");
+//  if (val)
+//    mDefaultLogPath = val;
+//  else
+//    mDefaultLogPath = "log.txt";
+//
+//  // data path
+//
+//  val = getenv("VL_DATA_PATH");
+//  if (val)
+//    mDefaultDataPath = val;
+//  else
+//    mDefaultDataPath = "../data";
+//
+//  // verbosity level
+//
+//  val = getenv("VL_VERBOSITY_LEVEL");
+//  if (val)
+//  {
+//    if ( String(val).toUpperCase() == "SILENT")
+//      setVerbosityLevel(vl::VEL_VERBOSITY_SILENT);
+//    else
+//    if ( String(val).toUpperCase() == "ERROR")
+//      setVerbosityLevel(vl::VEL_VERBOSITY_ERROR);
+//    else
+//    if ( String(val).toUpperCase() == "NORMAL")
+//      setVerbosityLevel(vl::VEL_VERBOSITY_NORMAL);
+//    else
+//    if ( String(val).toUpperCase() == "DEBUG")
+//      setVerbosityLevel(vl::VEL_VERBOSITY_DEBUG);
+//    else
+//    {
+//      // no log here yet.
+//      fprintf(stderr,"VL_VERBOSITY_LEVEL variable has unknown value %s! Legal values: SILENT, ERROR, NORMAL, DEBUG\n\n", val);
+//    }
+//  }
+//
+//  // opengl state checks
+//
+//  val = getenv("VL_CHECK_GL_STATES");
+//  if (val)
+//  {
+//    if ( String(val).toUpperCase() == "YES" )
+//      setCheckOpenGLStates(true);
+//    else
+//    if ( String(val).toUpperCase() == "NO" )
+//      setCheckOpenGLStates(false);
+//    else
+//    {
+//      // no log here yet.
+//      fprintf(stderr,"VL_CHECK_GL_STATES variable has unknown value '%s'! Legal values: YES, NO.\n\n", val);
+//    }
+//  }
+//}
 //-----------------------------------------------------------------------------

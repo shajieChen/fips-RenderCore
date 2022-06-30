@@ -29,11 +29,12 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/Object.hpp>
-#include <vlCore/Log.hpp>
-#include <vlCore/Say.hpp>
+#include "Object.hpp"
+//#include "Log.hpp"
+//#include "Say.hpp"
 
 using namespace vl;
+using namespace Oryol;  
 
 //------------------------------------------------------------------------------
 // Object
@@ -44,12 +45,20 @@ using namespace vl;
 //------------------------------------------------------------------------------
 Object::~Object()
 {
-  if (mReferenceCount && !automaticDelete())
-    Log::bug(Say(
+    if (mReferenceCount && !automaticDelete())
+    {
+        o_warn("Object '%s' is being deleted having still %n references! Pissible causes:\n"
+                 "- illegal use of the 'delete' operator on an Object. Use ref<> instead.\n"
+                 "- explicit call to Object::incReference().\n"
+          ,mObjectName ,mReferenceCount );
+    }
+    /*Log::bug(Say(
     "Object '%s' is being deleted having still %n references! Pissible causes:\n"
     "- illegal use of the 'delete' operator on an Object. Use ref<> instead.\n"
     "- explicit call to Object::incReference().\n"
-    ) << mObjectName << mReferenceCount );
+    ) << mObjectName << mReferenceCount );*/
+
+
 
 #if VL_DEBUG_LIVING_OBJECTS
   debug_living_objects()->erase(this);

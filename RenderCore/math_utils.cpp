@@ -29,13 +29,13 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/math_utils.hpp>
-#include <vlCore/AABB.hpp>
+#include "math_utils.hpp"
+#include "AABB.hpp"
 #include "Vector2.hpp"
-#include <vlCore/Vector4.hpp>
-#include <vlCore/Plane.hpp>
+#include "Vector4.hpp"
+#include "Plane.hpp"
 #include "checks.hpp"
-#include <vlCore/MersenneTwister.hpp>
+#include "MersenneTwister.hpp"
 #include <cstdlib>
 
 using namespace vl;

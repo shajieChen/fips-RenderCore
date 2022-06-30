@@ -9,15 +9,15 @@
 #ifndef _MURMURHASH3_H_
 #define _MURMURHASH3_H_
 
-#include <vlCore/std_types.hpp>
+#include "std_types.hpp"
 
 namespace vl
 {
-  VLCORE_EXPORT void MurmurHash3_x86_32  ( const void * key, int len, u32 seed, void * out );
-
-  VLCORE_EXPORT void MurmurHash3_x86_128 ( const void * key, int len, u32 seed, void * out );
-
-  VLCORE_EXPORT void MurmurHash3_x64_128 ( const void * key, int len, u32 seed, void * out );
+  /*VLCORE_EXPORT*/ void MurmurHash3_x86_32  ( const void * key, int len, u32 seed, void * out );
+  /*			 */ 
+  /*VLCORE_EXPORT*/ void MurmurHash3_x86_128 ( const void * key, int len, u32 seed, void * out );
+  /*			 */ 
+  /*VLCORE_EXPORT*/ void MurmurHash3_x64_128 ( const void * key, int len, u32 seed, void * out );
 }
 
 #endif // _MURMURHASH3_H_

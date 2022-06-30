@@ -29,10 +29,10 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/Random.hpp>
-#include <vlCore/Time.hpp>
-#include <vlCore/Log.hpp>
-#include <vlCore/MersenneTwister.hpp>
+#include "Random.hpp"
+#include "Time.hpp" 
+#include "Core/Log.h"
+#include "MersenneTwister.hpp"
 #include <cstdlib>
 
 #if defined(VL_PLATFORM_WINDOWS)

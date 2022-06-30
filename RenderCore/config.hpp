@@ -38,6 +38,7 @@
  * Visualization Library configuration file.
 */
 
+#include "Gfx/private/gl/gl_impl.h" 
 #ifndef VISUALIZATION_LIBRARY_CONFIG_INCLUDE_ONCE
 #define VISUALIZATION_LIBRARY_CONFIG_INCLUDE_ONCE
 

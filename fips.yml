@@ -23,4 +23,6 @@
 #       TARGET-NAME:
 #           cwd:    WORKING DIRECTORY FOR 'fips run target'
 #       ...
-
+imports:
+    oryol:
+        git: https://github.com/floooh/oryol.git

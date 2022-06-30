@@ -32,7 +32,7 @@
 #ifndef Collection_INCLUDE_ONCE
 #define Collection_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
+#include "Object.hpp"
 #include <vector>
 #include <algorithm>
 

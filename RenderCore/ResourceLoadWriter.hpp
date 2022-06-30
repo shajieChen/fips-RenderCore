@@ -32,7 +32,7 @@
 #ifndef ResourceLoadWriter_INCLUDE_ONCE
 #define ResourceLoadWriter_INCLUDE_ONCE
 
-#include <vlCore/String.hpp>
+#include "String.hpp"
 
 namespace vl
 {

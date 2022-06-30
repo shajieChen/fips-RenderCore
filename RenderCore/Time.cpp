@@ -29,7 +29,7 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/Time.hpp>
+#include "Time.hpp"
 #include <ctime>
 #include <cmath>
 

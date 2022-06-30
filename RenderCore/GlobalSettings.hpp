@@ -32,59 +32,61 @@
 #ifndef Settings_INCLUDE_ONCE
 #define Settings_INCLUDE_ONCE
 
-#include <vlCore/vlnamespace.hpp>
-#include <vlCore/String.hpp>
+#include "vlnamespace.hpp" 
+#include "Core/String/String.h"
+#include "Core/Log.h"
+using namespace Oryol; 
 
-namespace vl
-{
-  //! Global application settings controlling how Visualization Library behaves.
-  class VLCORE_EXPORT GlobalSettings: public Object
-  {
-    friend class VisualizationLibrary;
-
-    VL_INSTRUMENT_CLASS(vl::GlobalSettings, Object)
-
-  public:
-    GlobalSettings();
-
-    /** If \p true VL checks at the beginning of each rendering that the OpenGL states are
-      * clean and ready to be used by VL. If the test fails it can mean that either there
-      * is a bug in VL or that the user did not restore the OpenGL states to a VL friendly
-      * state after modifying them.
-      * \note This can slow down the rendering. Enabled by default in DEBUG mode only. */
-    void setCheckOpenGLStates(bool check_clean) { mCheckOpenGLStates = check_clean; }
-
-    /** If \p true VL checks at the beginning of each rendering that the OpenGL states are
-      * clean and ready to be used by VL. If the test fails it can mean that either there
-      * is a bug in VL or that the user did not restore the OpenGL states to a VL friendly
-      * state after modifying them.
-      * \note This can slow down the rendering. Enabled by default in DEBUG mode only. */
-    bool checkOpenGLStates() const { return mCheckOpenGLStates; }
-
-    /** The verbosity level of VL. This applies to all the logs generated via vl::Log::*. */
-    void setVerbosityLevel(EVerbosityLevel verb_level) { mVerbosityLevel = verb_level; }
-
-    /** The verbosity level of VL. This applies to all the logs generated via vl::Log::*. */
-    EVerbosityLevel verbosityLevel() const { return mVerbosityLevel; }
-
-    /** The path of the default log file. */
-    const String& defaultLogPath() const { return mDefaultLogPath; }
-
-    /** The path of the default data directory. */
-    const String& defaultDataPath() const { return mDefaultDataPath; }
-
-  protected:
-    EVerbosityLevel mVerbosityLevel;
-    bool mCheckOpenGLStates;
-    String mDefaultLogPath;
-    String mDefaultDataPath;
-  };
-
-  //! Returns VisulizationLibrary's global settings.
-  VLCORE_EXPORT GlobalSettings* globalSettings();
-
-  //! Sets VisulizationLibrary's global settings.
-  VLCORE_EXPORT void setGlobalSettings(GlobalSettings*);
-}
+//namespace vl
+//{
+//  //! Global application settings controlling how Visualization Library behaves.
+//  class VLCORE_EXPORT GlobalSettings: public Object
+//  {
+//    friend class VisualizationLibrary;
+//
+//    VL_INSTRUMENT_CLASS(vl::GlobalSettings, Object)
+//
+//  public:
+//    GlobalSettings();
+//
+//    /** If \p true VL checks at the beginning of each rendering that the OpenGL states are
+//      * clean and ready to be used by VL. If the test fails it can mean that either there
+//      * is a bug in VL or that the user did not restore the OpenGL states to a VL friendly
+//      * state after modifying them.
+//      * \note This can slow down the rendering. Enabled by default in DEBUG mode only. */
+//    void setCheckOpenGLStates(bool check_clean) { mCheckOpenGLStates = check_clean; }
+//
+//    /** If \p true VL checks at the beginning of each rendering that the OpenGL states are
+//      * clean and ready to be used by VL. If the test fails it can mean that either there
+//      * is a bug in VL or that the user did not restore the OpenGL states to a VL friendly
+//      * state after modifying them.
+//      * \note This can slow down the rendering. Enabled by default in DEBUG mode only. */
+//    bool checkOpenGLStates() const { return mCheckOpenGLStates; }
+//
+//    /** The verbosity level of VL. This applies to all the logs generated via vl::Log::*. */
+//    void setVerbosityLevel(EVerbosityLevel verb_level) { mVerbosityLevel = verb_level; }
+//
+//    /** The verbosity level of VL. This applies to all the logs generated via vl::Log::*. */
+//    EVerbosityLevel verbosityLevel() const { return mVerbosityLevel; }
+//
+//    /** The path of the default log file. */
+//    const String& defaultLogPath() const { return mDefaultLogPath; }
+//
+//    /** The path of the default data directory. */
+//    const String& defaultDataPath() const { return mDefaultDataPath; }
+//
+//  protected:
+//    EVerbosityLevel mVerbosityLevel;
+//    bool mCheckOpenGLStates;
+//    String mDefaultLogPath;
+//    String mDefaultDataPath;
+//  };
+//
+//  //! Returns VisulizationLibrary's global settings.
+//  VLCORE_EXPORT GlobalSettings* globalSettings();
+//
+//  //! Sets VisulizationLibrary's global settings.
+//  VLCORE_EXPORT void setGlobalSettings(GlobalSettings*);
+//} 
 
 #endif

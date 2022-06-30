@@ -73,7 +73,7 @@
 #include <cstdio>
 #include <ctime>
 #include <cmath>
-#include <vlCore/Object.hpp>
+#include "Object.hpp"
 
 namespace vl
 {

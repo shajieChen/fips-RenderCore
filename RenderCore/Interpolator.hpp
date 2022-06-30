@@ -32,9 +32,9 @@
 #ifndef Interpolator_INCLUDE_ONCE
 #define Interpolator_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
-#include <vlCore/glsl_math.hpp>
-#include <vlCore/Vector4.hpp>
+#include "Object.hpp"
+#include "glsl_math.hpp"
+#include "Vector4.hpp"
 #include <vector>
 
 namespace vl

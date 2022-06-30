@@ -29,8 +29,8 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/Plane.hpp>
-#include <vlCore/AABB.hpp>
+#include "Plane.hpp"
+#include "AABB.hpp"
 
 using namespace vl;
 

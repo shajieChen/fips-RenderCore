@@ -32,8 +32,8 @@
 #ifndef BufferedStream_INCLUDE_ONCE
 #define BufferedStream_INCLUDE_ONCE
 
-#include <vlCore/String.hpp>
-#include <vlCore/VirtualFile.hpp>
+#include "String.hpp"
+#include "VirtualFile.hpp"
 #include <string>
 #include <vector>
 

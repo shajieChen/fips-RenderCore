@@ -32,7 +32,7 @@
 #ifndef CatmullRomInterpolator_INCLUDE_ONCE
 #define CatmullRomInterpolator_INCLUDE_ONCE
 
-#include <vlCore/Interpolator.hpp>
+#include "Interpolator.hpp"
 
 namespace vl
 {

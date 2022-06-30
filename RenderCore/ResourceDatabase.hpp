@@ -32,8 +32,8 @@
 #ifndef ResourceDatabase_INCLUDE_ONCE
 #define ResourceDatabase_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
-#include <vlCore/String.hpp>
+#include "Object.hpp"
+#include "String.hpp"
 #include <vector>
 #include <algorithm>
 

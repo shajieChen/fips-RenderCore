@@ -11,7 +11,7 @@
 #pragma GCC diagnostic ignored "-Wimplicit-fallthrough="
 #endif
 
-#include <vlCore/MurmurHash3.hpp>
+#include "MurmurHash3.hpp"
 
 using namespace vl;
 

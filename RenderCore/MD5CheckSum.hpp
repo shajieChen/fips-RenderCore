@@ -33,9 +33,10 @@
 #define MD5CheckSum_INCLUDE_ONCE
 
 #include "link_config.hpp"
-#include <string>
-#include <string.h>
 
+
+#include "Core/String/String.h"
+#include <cstdio> 
 namespace vl
 {
   class VirtualFile;
@@ -43,18 +44,25 @@ namespace vl
   /**
    * Computes the MD5 of a given buffer or VirtualFile.
   */
-  class VLCORE_EXPORT MD5CheckSum
+  class MD5CheckSum
   {
   public:
     MD5CheckSum() { memset(mMD5, 0, 16); }
 
     const unsigned char* md5() const { return mMD5; }
 
-    std::string toStdString() const;
+    inline Oryol::String toStdString() const {
+        char sum[33];
+        sprintf(sum, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            mMD5[0], mMD5[1], mMD5[2], mMD5[3], mMD5[4], mMD5[5], mMD5[6], mMD5[7],
+            mMD5[8], mMD5[9], mMD5[10], mMD5[11], mMD5[12], mMD5[13], mMD5[14], mMD5[15]);
+        return sum;
+    } 
 
     void compute(void* buffer, int len);
 
-    void compute(VirtualFile* file);
+
+    //void compute(VirtualFile* file);
 
     bool operator==(const MD5CheckSum& other) const { return memcmp(mMD5, other.mMD5, 16) == 0; }
 

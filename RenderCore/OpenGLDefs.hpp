@@ -40,8 +40,8 @@
 
     #include <gl/gl.h>
     #include <gl/glu.h>
-    #include <GL/khronos_glext.h>
-    #include <GL/khronos_wglext.h>
+   // #include <GL/khronos_glext.h>
+    //#include <GL/khronos_wglext.h>
 
   #elif defined(VL_PLATFORM_LINUX)
 

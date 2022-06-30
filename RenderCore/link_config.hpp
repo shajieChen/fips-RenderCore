@@ -32,10 +32,10 @@
 #ifndef VLCORE_CONFIG_INCLUDE_ONCE
 #define VLCORE_CONFIG_INCLUDE_ONCE
 
-#include <vlCore/config.hpp>
+#include "config.hpp"
 
 // VLCORE_EXPORT macro
-#if defined(_WIN32) && !defined(VL_STATIC_LINKING)
+#if defined(ORYOL_WINDOWS) && !defined(VL_STATIC_LINKING)
   #ifdef VLCore_EXPORTS
     #define VLCORE_EXPORT __declspec(dllexport)
   #else

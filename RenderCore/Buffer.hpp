@@ -32,7 +32,7 @@
 #ifndef Buffer_INCLUDE_ONCE
 #define Buffer_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
+#include "Object.hpp"
 #include <string.h>
 
 namespace vl

@@ -32,7 +32,7 @@
 #ifndef Time_INCLUDE_ONCE
 #define Time_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
+#include "Object.hpp"
 
 namespace vl
 {
@@ -46,7 +46,7 @@ namespace vl
   /**
    * Simple class to be used as a timer and to retrieve the current time and date.
   */
-  class VLCORE_EXPORT Time: public Object
+  class /*VLCORE_EXPORT*/ Time : public Object
   {
     VL_INSTRUMENT_CLASS(vl::Time, Object)
 

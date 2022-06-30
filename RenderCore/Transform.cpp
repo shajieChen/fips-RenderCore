@@ -29,64 +29,66 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/Transform.hpp>
-#include <vlCore/GlobalSettings.hpp>
-#include <vlCore/VisualizationLibrary.hpp>
-#include <vlCore/Log.hpp>
+#include "Transform.hpp"
+#include "GlobalSettings.hpp" 
 #include <algorithm>
 #include <set>
+ 
+using namespace Oryol; 
 
-using namespace vl;
-
-//-----------------------------------------------------------------------------
-// Transform
-//-----------------------------------------------------------------------------
-Transform::~Transform()
-{
+namespace vl
+{ 
+    //-----------------------------------------------------------------------------
+    // Transform
+    //-----------------------------------------------------------------------------
+    Transform::~Transform()
+    {
 #if 0
-  if (!mChildren.empty())
-    Log::warning("Transform::~Transform(): a Transform with children is being destroyed! One or more Transforms will be orphaned.\n");
+        if (!mChildren.empty())
+            Log::warning("Transform::~Transform(): a Transform with children is being destroyed! One or more Transforms will be orphaned.\n");
 #endif
 
-  for(size_t i=0; i<mChildren.size(); ++i)
-  {
-    mChildren[i]->mParent = NULL;
-    mChildren[i]->setLocalMatrix( mChildren[i]->worldMatrix() );
-  }
+        for (size_t i = 0; i < mChildren.size(); ++i)
+        {
+            mChildren[i]->mParent = NULL;
+            mChildren[i]->setLocalMatrix(mChildren[i]->worldMatrix());
+        }
+    }
+    //-----------------------------------------------------------------------------
+    void Transform::translate(real x, real y, real z)
+    {
+        setLocalMatrix(mat4::getTranslation(x, y, z) * localMatrix());
+    }
+    //-----------------------------------------------------------------------------
+    void Transform::translate(const vec3& t)
+    {
+        setLocalMatrix(mat4::getTranslation(t) * localMatrix());
+    }
+    //-----------------------------------------------------------------------------
+    void Transform::scale(real x, real y, real z)
+    {
+        setLocalMatrix(mat4::getScaling(x, y, z) * localMatrix());
+    }
+    //-----------------------------------------------------------------------------
+    void Transform::rotate(real degrees, real x, real y, real z)
+    {
+        setLocalMatrix(mat4::getRotation(degrees, x, y, z) * localMatrix());
+    }
+    //-----------------------------------------------------------------------------
+    void Transform::rotate(const vec3& from, const vec3& to)
+    {
+        setLocalMatrix(mat4::getRotation(from, to) * localMatrix());
+    }
+    //-----------------------------------------------------------------------------
+    void Transform::preMultiply(const mat4& m)
+    {
+        setLocalMatrix(m * localMatrix());
+    }
+    //-----------------------------------------------------------------------------
+    void Transform::postMultiply(const mat4& m)
+    {
+        setLocalMatrix(localMatrix() * m);
+    }
+    //-----------------------------------------------------------------------------
+
 }
-//-----------------------------------------------------------------------------
-void Transform::translate(real x, real y, real z)
-{
-  setLocalMatrix( mat4::getTranslation(x,y,z)*localMatrix() );
-}
-//-----------------------------------------------------------------------------
-void Transform::translate(const vec3& t)
-{
-  setLocalMatrix( mat4::getTranslation(t)*localMatrix() );
-}
-//-----------------------------------------------------------------------------
-void Transform::scale(real x, real y, real z)
-{
-  setLocalMatrix( mat4::getScaling(x,y,z)*localMatrix() );
-}
-//-----------------------------------------------------------------------------
-void Transform::rotate(real degrees, real x, real y, real z)
-{
-  setLocalMatrix( mat4::getRotation(degrees,x,y,z)*localMatrix() );
-}
-//-----------------------------------------------------------------------------
-void Transform::rotate(const vec3& from, const vec3& to)
-{
-  setLocalMatrix( mat4::getRotation(from,to)*localMatrix() );
-}
-//-----------------------------------------------------------------------------
-void Transform::preMultiply(const mat4& m)
-{
-  setLocalMatrix( m*localMatrix() );
-}
-//-----------------------------------------------------------------------------
-void Transform::postMultiply(const mat4& m)
-{
-  setLocalMatrix( localMatrix()*m );
-}
-//-----------------------------------------------------------------------------

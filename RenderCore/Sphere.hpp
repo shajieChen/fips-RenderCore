@@ -32,7 +32,7 @@
 #ifndef Sphere_INCLUDE_ONCE
 #define Sphere_INCLUDE_ONCE
 
-#include <vlCore/AABB.hpp>
+#include "AABB.hpp"
 
 namespace vl
 {

@@ -32,7 +32,7 @@
 #ifndef CRC32CheckSum_INCLUDE_ONCE
 #define CRC32CheckSum_INCLUDE_ONCE
 
-#include <vlCore/VirtualFile.hpp>
+#include "VirtualFile.hpp"
 
 namespace vl
 {

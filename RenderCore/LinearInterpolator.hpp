@@ -32,7 +32,7 @@
 #ifndef LinearInterpolator_INCLUDE_ONCE
 #define LinearInterpolator_INCLUDE_ONCE
 
-#include <vlCore/Interpolator.hpp>
+#include "Interpolator.hpp"
 
 namespace vl
 {

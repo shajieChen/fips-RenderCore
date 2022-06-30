@@ -32,13 +32,13 @@
 #ifndef Random_INCLUDE_ONCE
 #define Random_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
+#include "Object.hpp"
 
 namespace vl
 {
   //! Cryptographic random number generator.
   //! For non-ryptographic fast and high quality random number generation use vl::MersenneTwister.
-  class VLCORE_EXPORT Random: public Object
+  class /*VLCORE_EXPORT*/ Random : public Object
   {
     VL_INSTRUMENT_CLASS(vl::Random, Object)
 

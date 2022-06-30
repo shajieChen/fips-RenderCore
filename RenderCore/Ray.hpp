@@ -32,7 +32,7 @@
 #ifndef Ray_INCLUDE_ONCE
 #define Ray_INCLUDE_ONCE
 
-#include <vlCore/Vector4.hpp>
+#include "Vector4.hpp"
 
 namespace vl
 {

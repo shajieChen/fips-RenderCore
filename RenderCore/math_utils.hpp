@@ -32,8 +32,8 @@
 #ifndef mathutils_INCLUDE_ONCE
 #define mathutils_INCLUDE_ONCE
 
-#include <vlCore/glsl_math.hpp>
-#include <vlCore/Plane.hpp>
+#include "glsl_math.hpp"
+#include "Plane.hpp"
 #include <cstdio>
 #include <memory.h>
 #include <vector>
@@ -43,32 +43,32 @@ namespace vl
   /**
    * Returns a random number N between 'min' and 'max' (included) with 53 bits of randomness generated using MersenneTwister->rand53().
    */
-  VLCORE_EXPORT real random(real min, real max);
+  /*VLCORE_EXPORT*/ real random(real min, real max);
 
   /**
    * Returns a random number N between 'min' and 'max' (included) generated using MersenneTwister->randInt().
    */
-  VLCORE_EXPORT u32 randomU32(u32 min, u32 max);
+  /*VLCORE_EXPORT*/ u32 randomU32(u32 min, u32 max);
 
   /**
    * Returns a random number N between 'min' and 'max' (included) generated using MersenneTwister->randInt().
    */
-  VLCORE_EXPORT i32 randomI32(i32 min, i32 max);
+  /*VLCORE_EXPORT*/ i32 randomI32(i32 min, i32 max);
 
   /**
    * Returns a number N that is a power of 2 and that is equal to or greater than 'n'.
    */
-  VLCORE_EXPORT int greaterEqualPow2(int n);
+  /*VLCORE_EXPORT*/ int greaterEqualPow2(int n);
 
   /**
    * Returns a number N that is a power of 2 and that is equal to or smaller than 'n'.
    */
-  VLCORE_EXPORT int smallerEqualPow2(int n);
+  /*VLCORE_EXPORT*/ int smallerEqualPow2(int n);
 
   /**
    * Extracts the 6 frustum planes for the given model-view-projection matrix.
    */
-  VLCORE_EXPORT void extractPlanes( Plane* planes, const mat4& modelviewproj );
+  /*VLCORE_EXPORT*/ void extractPlanes( Plane* planes, const mat4& modelviewproj );
 }
 
 #endif

@@ -32,7 +32,7 @@
 #ifndef stdtypes_INCLUDE_ONCE
 #define stdtypes_INCLUDE_ONCE
 
-#include <vlCore/config.hpp>
+#include "config.hpp"
 #include "checks.hpp"
 
 namespace vl

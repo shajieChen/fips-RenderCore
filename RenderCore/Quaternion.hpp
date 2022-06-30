@@ -32,7 +32,7 @@
 #ifndef Quaternion_INCLUDE_ONCE
 #define Quaternion_INCLUDE_ONCE
 
-#include <vlCore/glsl_math.hpp>
+#include "glsl_math.hpp"
 
 namespace vl
 {

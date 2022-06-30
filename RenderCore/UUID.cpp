@@ -29,9 +29,9 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/UUID.hpp>
-#include <vlCore/Time.hpp>
-#include <vlCore/Random.hpp>
+#include "UUID.hpp"
+#include "Time.hpp"
+#include "Random.hpp"
 #include <vector>
 
 using namespace vl;

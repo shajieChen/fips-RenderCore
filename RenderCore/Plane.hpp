@@ -32,9 +32,9 @@
 #ifndef Plane_INCLUDE_ONCE
 #define Plane_INCLUDE_ONCE
 
-#include <vlCore/Object.hpp>
-#include <vlCore/glsl_math.hpp>
-#include <vlCore/Transform.hpp>
+#include "Object.hpp"
+#include "glsl_math.hpp"
+#include "Transform.hpp"
 
 namespace vl
 {
@@ -46,7 +46,7 @@ namespace vl
   /**
    * The Plane class defines a plane using a normal and an origin.
   */
-  class VLCORE_EXPORT Plane: public Object
+  class /*VLCORE_EXPORT*/ Plane : public Object
   {
     VL_INSTRUMENT_CLASS(vl::Plane, Object)
 

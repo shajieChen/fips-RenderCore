@@ -29,9 +29,8 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/KeyValues.hpp>
-#include <vlCore/Log.hpp>
-#include <vlCore/Say.hpp>
+#include "KeyValues.hpp"
+#include "Core/Log.h"
 
 using namespace vl;
 
@@ -47,8 +46,8 @@ String KeyValues::value(const String& key) const
   if ( it != mKeyValues.end() )
     return it->second;
   else
-  {
-    vl::Log::error( vl::Say("KeyValues::value(): key '%s' does not exist.\n") << key );
+  { 
+     o_error("KeyValues::value() : key '%s' does not exist.\n" , key); 
     return String();
   }
 }
@@ -62,7 +61,8 @@ void KeyValues::getKeys(std::vector<String>& keys) const
 //-----------------------------------------------------------------------------
 void KeyValues::print()
 {
-  for(std::map<String, String>::const_iterator it = mKeyValues.begin(); it != mKeyValues.end(); ++it)
-    vl::Log::print( Say("%s=%s\n") << it->first << it->second );
+    for (std::map<String, String>::const_iterator it = mKeyValues.begin(); it != mKeyValues.end(); ++it)
+        o_info("%s=%s\n" ,it->first , it->second );
+
 }
 //-----------------------------------------------------------------------------

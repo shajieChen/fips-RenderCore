@@ -32,13 +32,13 @@
 #ifndef Transform_INCLUDE_ONCE
 #define Transform_INCLUDE_ONCE
 
-#include <vlCore/vlnamespace.hpp>
-#include <vlCore/Object.hpp>
-#include <vlCore/Matrix4.hpp>
+#include "vlnamespace.hpp"
+#include "Object.hpp"
+#include "Matrix4.hpp"
 #include <vector>
 #include <set>
 #include <algorithm>
-
+using namespace Oryol; 
 namespace vl
 {
   class Camera;
@@ -69,7 +69,7 @@ namespace vl
     *
     * \sa setLocalAndWorldMatrix(), setAssumeIdentityWorldMatrix(), Rendering::transform()
     * \sa Actor, Rendering, Effect, Renderable, Geometry */
-  class VLCORE_EXPORT Transform: public Object
+  class /*VLCORE_EXPORT*/ Transform : public Object
   {
     VL_INSTRUMENT_CLASS(vl::Transform, Object)
 

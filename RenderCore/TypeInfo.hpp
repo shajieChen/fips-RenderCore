@@ -32,7 +32,7 @@
 #ifndef TypInfo_INCLUDE_ONCE
 #define TypInfo_INCLUDE_ONCE
 
-#include <vlCore/MurmurHash3.hpp>
+#include "MurmurHash3.hpp"
 
 namespace vl
 {
