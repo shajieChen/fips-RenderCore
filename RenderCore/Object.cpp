@@ -50,7 +50,7 @@ Object::~Object()
         o_warn("Object '%s' is being deleted having still %n references! Pissible causes:\n"
                  "- illegal use of the 'delete' operator on an Object. Use ref<> instead.\n"
                  "- explicit call to Object::incReference().\n"
-          ,mObjectName ,mReferenceCount );
+          ,mObjectName.c_str() ,mReferenceCount );
     }
     /*Log::bug(Say(
     "Object '%s' is being deleted having still %n references! Pissible causes:\n"

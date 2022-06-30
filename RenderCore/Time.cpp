@@ -50,7 +50,7 @@ Time::Time()
   for(int i=0; i<VL_MAX_TIMERS; ++i)
     mStart[i] = -1;
 
-  #if defined(VL_PLATFORM_WINDOWS)
+  #if defined(ORYOL_WINDOWS)
     SYSTEMTIME local_time;
     GetLocalTime(&local_time);
     mYear = local_time.wYear;
@@ -86,7 +86,7 @@ namespace vl
 
   void initStartTime()
   {
-    #if defined(VL_PLATFORM_WINDOWS)
+    #if defined(ORYOL_WINDOWS)
       LARGE_INTEGER Frequency;
       LARGE_INTEGER PerformanceCount;
       BOOL has_timer = QueryPerformanceFrequency( &Frequency );
@@ -118,7 +118,7 @@ real Time::currentTime()
 
   VL_CHECK(gStartTime);
 
-  #if defined(VL_PLATFORM_WINDOWS)
+  #if defined(ORYOL_WINDOWS)
     // Win32
     LARGE_INTEGER Frequency;
     LARGE_INTEGER PerformanceCount;
@@ -143,8 +143,10 @@ real Time::currentTime()
 //-----------------------------------------------------------------------------
 void Time::sleep(unsigned int milliseconds)
 {
-  #if defined(VL_PLATFORM_WINDOWS)
+  #if defined(ORYOL_WINDOWS)
     Sleep(milliseconds);
+  #elif defined(ORYOL_ANDROID)
+    sleep(milliseconds);
   #elif defined(__GNUG__)
     usleep(milliseconds*1000);
   #endif

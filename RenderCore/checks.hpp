@@ -35,7 +35,7 @@
 #include "link_config.hpp"
 
 // Required for IsDebuggerPresent()
-#if defined(VL_PLATFORM_WINDOWS)
+#if defined(ORYOL_WINDOWS)
   #ifndef WIN32_LEAN_AND_MEAN
     #define WIN32_LEAN_AND_MEAN 1
   #endif

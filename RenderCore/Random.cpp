@@ -35,7 +35,7 @@
 #include "MersenneTwister.hpp"
 #include <cstdlib>
 
-#if defined(VL_PLATFORM_WINDOWS)
+#if defined(ORYOL_WINDOWS)
   #include <wincrypt.h>
 #endif
 

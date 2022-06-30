@@ -47,7 +47,7 @@ String KeyValues::value(const String& key) const
     return it->second;
   else
   { 
-     o_error("KeyValues::value() : key '%s' does not exist.\n" , key); 
+     o_error("KeyValues::value() : key '%s' does not exist.\n" , key.AsCStr()); 
     return String();
   }
 }
@@ -62,7 +62,7 @@ void KeyValues::getKeys(std::vector<String>& keys) const
 void KeyValues::print()
 {
     for (std::map<String, String>::const_iterator it = mKeyValues.begin(); it != mKeyValues.end(); ++it)
-        o_info("%s=%s\n" ,it->first , it->second );
+        o_info("%s=%s\n" ,it->first.AsCStr() , it->second.AsCStr() );
 
 }
 //-----------------------------------------------------------------------------

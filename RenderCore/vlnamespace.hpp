@@ -69,22 +69,30 @@ namespace vl
     //TF_LUMINANCE12_ALPHA4  = GL_LUMINANCE12_ALPHA4,
     //TF_LUMINANCE12_ALPHA12 = GL_LUMINANCE12_ALPHA12,
     //TF_LUMINANCE16_ALPHA16 = GL_LUMINANCE16_ALPHA16,
-    TF_R3_G3_B2 = GL_R3_G3_B2,
+#ifndef ORYOL_ANDROID
+    TF_R3_G3_B2 = GL_R3_G3_B2, 
     TF_RGB      = GL_RGB,
     TF_RGB4     = GL_RGB4,
     TF_RGB5     = GL_RGB5,
+#endif
     TF_RGB8     = GL_RGB8,
+#ifndef ORYOL_ANDROID
     TF_RGB10    = GL_RGB10,
     TF_RGB12    = GL_RGB12,
     TF_RGB16    = GL_RGB16,
+#endif
     TF_RGBA     = GL_RGBA,
+#ifndef ORYOL_ANDROID
     TF_RGBA2    = GL_RGBA2,
+#endif
     TF_RGBA4    = GL_RGBA4,
     TF_RGB5_A1  = GL_RGB5_A1,
     TF_RGBA8    = GL_RGBA8,
     TF_RGB10_A2 = GL_RGB10_A2,
+#ifndef ORYOL_ANDROID
     TF_RGBA12   = GL_RGBA12,
     TF_RGBA16   = GL_RGBA16,
+#endif
 
     // ARB_texture_float / OpenGL 3
     TF_RGBA32F = GL_RGBA32F,
@@ -125,15 +133,18 @@ namespace vl
     TF_DEPTH24_STENCIL8 = GL_DEPTH24_STENCIL8,
 
     // ARB_depth_buffer_float
+#ifndef ORYOL_ANDROID
     TF_DEPTH_COMPONENT32F = GL_DEPTH_COMPONENT32F,
+#endif
     TF_DEPTH32F_STENCIL8  = GL_DEPTH32F_STENCIL8,
 
     // ARB_depth_texture
     TF_DEPTH_COMPONENT   = GL_DEPTH_COMPONENT,
     TF_DEPTH_COMPONENT16 = GL_DEPTH_COMPONENT16,
-    TF_DEPTH_COMPONENT24 = GL_DEPTH_COMPONENT24,
+    TF_DEPTH_COMPONENT24 = GL_DEPTH_COMPONENT24, 
+#ifndef ORYOL_ANDROID
     TF_DEPTH_COMPONENT32 = GL_DEPTH_COMPONENT32,
-
+#endif
     // ARB_texture_compression
     //TF_COMPRESSED_ALPHA           = GL_COMPRESSED_ALPHA_ARB,
     //TF_COMPRESSED_INTENSITY       = GL_COMPRESSED_INTENSITY_ARB,
@@ -209,13 +220,19 @@ namespace vl
 
     // GL_ARB_texture_rg
     TF_RED = GL_RED,
+#ifndef ORYOL_ANDROID
     TF_COMPRESSED_RED = GL_COMPRESSED_RED,
     TF_COMPRESSED_RG = GL_COMPRESSED_RG,
+#endif
     TF_RG = GL_RG,
     TF_R8 = GL_R8,
+#ifndef ORYOL_ANDROID
     TF_R16 = GL_R16,
+#endif
     TF_RG8 = GL_RG8,
+#ifndef ORYOL_ANDROID
     TF_RG16 = GL_RG16,
+#endif
     TF_R16F = GL_R16F,
     TF_R32F = GL_R32F,
     TF_RG16F = GL_RG16F,
@@ -244,10 +261,14 @@ namespace vl
     // sRGB OpenGL 2.1 / 3.x
     TF_SRGB = GL_SRGB,
     TF_SRGB8 = GL_SRGB8,
+#ifndef ORYOL_ANDROID
     TF_SRGB_ALPHA = GL_SRGB_ALPHA,
+#endif
     TF_SRGB8_ALPHA8 = GL_SRGB8_ALPHA8,
+#ifndef ORYOL_ANDROID
     TF_COMPRESSED_SRGB = GL_COMPRESSED_SRGB,
-    TF_COMPRESSED_SRGB_ALPHA = GL_COMPRESSED_SRGB_ALPHA,
+    TF_COMPRESSED_SRGB_ALPHA = GL_COMPRESSED_SRGB_ALPHA, 
+#endif
 
     // GL_EXT_texture_sRGB compressed formats
     //TF_COMPRESSED_SRGB_S3TC_DXT1_EXT = GL_COMPRESSED_SRGB_S3TC_DXT1_EXT,
@@ -257,13 +278,17 @@ namespace vl
 
     // from table 3.12 opengl api specs 4.1
     TF_R8_SNORM = GL_R8_SNORM,
+#ifndef ORYOL_ANDROID
     TF_R16_SNORM = GL_R16_SNORM,
     TF_RG8_SNORM = GL_RG8_SNORM,
     TF_RG16_SNORM = GL_RG16_SNORM,
+#endif
     TF_RGB8_SNORM = GL_RGB8_SNORM,
     TF_RGBA8_SNORM = GL_RGBA8_SNORM,
     TF_RGB10_A2UI = GL_RGB10_A2UI,
+#ifndef ORYOL_ANDROID
     TF_RGBA16_SNORM = GL_RGBA16_SNORM,
+#endif
     TF_R11F_G11F_B10F = GL_R11F_G11F_B10F,
     TF_RGB9_E5 = GL_RGB9_E5,
     TF_RGB8I = GL_RGB8I,
@@ -285,8 +310,10 @@ namespace vl
   {
     IF_RGB   = GL_RGB,
     IF_RGBA  = GL_RGBA,
+#ifndef ORYOL_ANDROID
     IF_BGR   = GL_BGR,
     IF_BGRA  = GL_BGRA,
+#endif
     IF_RG    = GL_RG,
     IF_RG_INTEGER = GL_RG_INTEGER,
     IF_RED   = GL_RED,
@@ -296,8 +323,9 @@ namespace vl
     IF_LUMINANCE       = GL_LUMINANCE,
     //IF_LUMINANCE_ALPHA = GL_LUMINANCE_ALPHA,
     IF_DEPTH_COMPONENT = GL_DEPTH_COMPONENT,
+#ifndef ORYOL_ANDROID
     IF_STENCIL_INDEX   = GL_STENCIL_INDEX,
-
+#endif
     // EXT_packed_depth_stencil / GL_ARB_framebuffer_object
     IF_DEPTH_STENCIL = GL_DEPTH_STENCIL,
 
@@ -310,14 +338,18 @@ namespace vl
     //IF_COMPRESSED_RGBA_S3TC_DXT5 = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT,
 
     // GL 3.0 (EXT_texture_integer)
+#ifndef ORYOL_ANDROID
     IF_RED_INTEGER   = GL_RED_INTEGER,
     IF_GREEN_INTEGER = GL_GREEN_INTEGER,
     IF_BLUE_INTEGER  = GL_BLUE_INTEGER,
+#endif
     //IF_ALPHA_INTEGER = GL_ALPHA_INTEGER,
     IF_RGB_INTEGER   = GL_RGB_INTEGER,
     IF_RGBA_INTEGER  = GL_RGBA_INTEGER,
+#ifndef ORYOL_ANDROID
     IF_BGR_INTEGER   = GL_BGR_INTEGER,
     IF_BGRA_INTEGER  = GL_BGRA_INTEGER,
+#endif
 
     // EXT_texture_integer
     //IF_LUMINANCE_INTEGER = GL_LUMINANCE_INTEGER_EXT,
@@ -327,7 +359,9 @@ namespace vl
 
   typedef enum
   {
+#ifndef ORYOL_ANDROID
     T2DT_TEXTURE_2D = GL_TEXTURE_2D,
+#endif
     T2DT_TEXTURE_CUBE_MAP_POSITIVE_X = GL_TEXTURE_CUBE_MAP_POSITIVE_X,
     T2DT_TEXTURE_CUBE_MAP_NEGATIVE_X = GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
     T2DT_TEXTURE_CUBE_MAP_POSITIVE_Y = GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
@@ -335,8 +369,10 @@ namespace vl
     T2DT_TEXTURE_CUBE_MAP_POSITIVE_Z = GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
     T2DT_TEXTURE_CUBE_MAP_NEGATIVE_Z = GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
     //T2DT_TEXTURE_RECTANGLE           = GL_TEXTURE_RECTANGLE_ARB,
+#ifndef ORYOL_ANDROID
     T2DT_TEXTURE_1D_ARRAY            = GL_TEXTURE_1D_ARRAY,
     T2DT_TEXTURE_2D_MULTISAMPLE      = GL_TEXTURE_2D_MULTISAMPLE,
+#endif
   } ETex2DTarget;
 
   typedef enum
@@ -378,11 +414,15 @@ namespace vl
     // see table 3.12 opengl api specs 4.1
     CBF_R8 = GL_R8,
     // CBF_R8_SNORM = GL_R8_SNORM,
+#ifndef ORYOL_ANDROID
     CBF_R16 = GL_R16,
+#endif
     // CBF_R16_SNORM = GL_R16_SNORM,
     CBF_RG8 = GL_RG8,
     // CBF_RG8_SNORM = GL_RG8_SNORM,
+#ifndef ORYOL_ANDROID
     CBF_RG16 = GL_RG16,
+#endif
     // CBF_RG16_SNORM = GL_RG16_SNORM,
     // CBF_R3_G3_B2 = GL_R3_G3_B2,
     // CBF_RGB4 = GL_RGB4,
@@ -401,7 +441,9 @@ namespace vl
     CBF_RGB10_A2 = GL_RGB10_A2,
     CBF_RGB10_A2UI = GL_RGB10_A2UI,
     // CBF_RGBA12 = GL_RGBA12,
+#ifndef ORYOL_ANDROID
     CBF_RGBA16 = GL_RGBA16,
+#endif
     // CBF_RGBA16_SNORM = GL_RGBA16_SNORM,
     // CBF_SRGB8 = GL_SRGB8,
     CBF_SRGB8_ALPHA8 = GL_SRGB8_ALPHA8,
@@ -447,7 +489,9 @@ namespace vl
     DBF_DEPTH_COMPONENT    = GL_DEPTH_COMPONENT,
     DBF_DEPTH_COMPONENT16  = GL_DEPTH_COMPONENT16,
     DBF_DEPTH_COMPONENT24  = GL_DEPTH_COMPONENT24,
+#ifndef ORYOL_ANDROID
     DBF_DEPTH_COMPONENT32  = GL_DEPTH_COMPONENT32,
+#endif
     DBF_DEPTH_COMPONENT32F = GL_DEPTH_COMPONENT32F,
   } EDepthBufferFormat;
 
@@ -507,16 +551,22 @@ namespace vl
   typedef enum
   {
     TD_TEXTURE_UNKNOWN = 0,
+#ifndef ORYOL_ANDROID
     TD_TEXTURE_1D = GL_TEXTURE_1D,
+#endif
     TD_TEXTURE_2D = GL_TEXTURE_2D,
     TD_TEXTURE_3D = GL_TEXTURE_3D,
     TD_TEXTURE_CUBE_MAP  = GL_TEXTURE_CUBE_MAP,
+#ifndef ORYOL_ANDROID
     TD_TEXTURE_RECTANGLE = GL_TEXTURE_RECTANGLE,
     TD_TEXTURE_1D_ARRAY  = GL_TEXTURE_1D_ARRAY,
+#endif
     TD_TEXTURE_2D_ARRAY  = GL_TEXTURE_2D_ARRAY,
+#ifndef ORYOL_ANDROID
     TD_TEXTURE_BUFFER    = GL_TEXTURE_BUFFER,
     TD_TEXTURE_2D_MULTISAMPLE = GL_TEXTURE_2D_MULTISAMPLE,
     TD_TEXTURE_2D_MULTISAMPLE_ARRAY = GL_TEXTURE_2D_MULTISAMPLE_ARRAY
+#endif
   } ETextureDimension;
 
   typedef enum
@@ -549,10 +599,12 @@ namespace vl
   typedef enum
   {
     RDB_NONE        = GL_NONE,
+#ifndef ORYOL_ANDROID
     RDB_FRONT_LEFT  = GL_FRONT_LEFT,
     RDB_FRONT_RIGHT = GL_FRONT_RIGHT,
     RDB_BACK_LEFT   = GL_BACK_LEFT,
     RDB_BACK_RIGHT  = GL_BACK_RIGHT,
+#endif
     //RDB_AUX0        = GL_AUX0,
     //RDB_AUX1        = GL_AUX1,
     //RDB_AUX2        = GL_AUX2,
@@ -585,14 +637,16 @@ namespace vl
   typedef enum
   {
     IT_IMPLICIT_TYPE = 0, //!< The type is implicitly defined by the EImageFormat value, for ex. IF_COMPRESSED_RGB_S3TC_DXT1.
-
+#ifndef ORYOL_ANDROID
     IT_UNSIGNED_BYTE  = GL_UNSIGNED_BYTE,
+#endif
     IT_BYTE           = GL_BYTE,
     IT_UNSIGNED_SHORT = GL_UNSIGNED_SHORT,
     IT_SHORT          = GL_SHORT,
     IT_UNSIGNED_INT   = GL_UNSIGNED_INT,
     IT_INT            = GL_INT,
     IT_FLOAT          = GL_FLOAT,
+#ifndef ORYOL_ANDROID
     IT_UNSIGNED_BYTE_3_3_2         = GL_UNSIGNED_BYTE_3_3_2,
     IT_UNSIGNED_BYTE_2_3_3_REV     = GL_UNSIGNED_BYTE_2_3_3_REV,
     IT_UNSIGNED_SHORT_5_6_5        = GL_UNSIGNED_SHORT_5_6_5,
@@ -604,6 +658,7 @@ namespace vl
     IT_UNSIGNED_INT_8_8_8_8        = GL_UNSIGNED_INT_8_8_8_8,
     IT_UNSIGNED_INT_8_8_8_8_REV    = GL_UNSIGNED_INT_8_8_8_8_REV,
     IT_UNSIGNED_INT_10_10_10_2     = GL_UNSIGNED_INT_10_10_10_2,
+#endif
     IT_UNSIGNED_INT_2_10_10_10_REV = GL_UNSIGNED_INT_2_10_10_10_REV,
 
     //IT_UNSIGNED_INT_5_9_9_9_REV       = GL_UNSIGNED_INT_5_9_9_9_REV_EXT,     /* EXT_texture_shared_exponent, supports only GL_RGB */
@@ -674,9 +729,11 @@ namespace vl
 
   typedef enum
   {
+#ifndef ORYOL_ANDROID
     PM_FILL=GL_FILL,
     PM_LINE=GL_LINE,
     PM_POINT=GL_POINT
+#endif
   } EPolygonMode;
 
   typedef enum
@@ -718,6 +775,7 @@ namespace vl
 
   typedef enum
   {
+#ifndef ORYOL_ANDROID
     LO_CLEAR=GL_CLEAR,
     LO_SET=GL_SET,
     LO_COPY=GL_COPY,
@@ -734,6 +792,7 @@ namespace vl
     LO_AND_INVERTED=GL_AND_INVERTED,
     LO_OR_REVERSE=GL_OR_REVERSE,
     LO_OR_INVERTED=GL_OR_INVERTED
+#endif
   } ELogicOp;
 
   typedef enum
@@ -761,7 +820,9 @@ namespace vl
   typedef enum
   {
     //TPW_CLAMP           = GL_CLAMP,
+#ifndef ORYOL_ANDROID
     TPW_CLAMP_TO_BORDER = GL_CLAMP_TO_BORDER,
+#endif
     TPW_CLAMP_TO_EDGE   = GL_CLAMP_TO_EDGE,
     TPW_MIRRORED_REPEAT = GL_MIRRORED_REPEAT,
     TPW_REPEAT          = GL_REPEAT
@@ -895,9 +956,11 @@ namespace vl
 
   typedef enum
   {
+#ifndef ORYOL_ANDROID
     BA_READ_ONLY  = GL_READ_ONLY,
     BA_WRITE_ONLY = GL_WRITE_ONLY,
     BA_READ_WRITE = GL_READ_WRITE
+#endif
   } EBufferObjectAccess;
 
   typedef enum
@@ -1290,7 +1353,9 @@ namespace vl
     ST_VERTEX_SHADER          = GL_VERTEX_SHADER, //!< A shader that is intended to run on the programmable vertex processor.
     //ST_TESS_CONTROL_SHADER    = GL_TESS_CONTROL_SHADER, //!< A shader that is intended to run on the programmable tessellation processor in the control stage.
     //ST_TESS_EVALUATION_SHADER = GL_TESS_EVALUATION_SHADER, //!< A shader that is intended to run on the programmable tessellation processor in the evaluation stage.
+#ifndef ORYOL_ANDROID
     ST_GEOMETRY_SHADER        = GL_GEOMETRY_SHADER, //!< A shader that is intended to run on the programmable geometry processor.
+#endif
     ST_FRAGMENT_SHADER        = GL_FRAGMENT_SHADER, //!< A shader that is intended to run on the programmable fragment processor.
     //ST_COMPUTE_SHADER         = GL_COMPUTE_SHADER //!< A shader that is intended to run on the programmable compute processor.
   } EShaderType;
@@ -1389,7 +1454,9 @@ namespace vl
     UT_FLOAT_VEC2 = GL_FLOAT_VEC2, //!< vec2
     UT_FLOAT_VEC3 = GL_FLOAT_VEC3, //!< vec3
     UT_FLOAT_VEC4 = GL_FLOAT_VEC4, //!< vec4
+#ifndef ORYOL_ANDROID
     UT_DOUBLE = GL_DOUBLE, //!< double
+#endif
     //UT_DOUBLE_VEC2 = GL_DOUBLE_VEC2, //!< dvec2
     //UT_DOUBLE_VEC3 = GL_DOUBLE_VEC3, //!< dvec3
     //UT_DOUBLE_VEC4 = GL_DOUBLE_VEC4, //!< dvec4
@@ -1423,44 +1490,63 @@ namespace vl
     //UT_DOUBLE_MAT3x4 = GL_DOUBLE_MAT3x4 , //!< dmat3x4
     //UT_DOUBLE_MAT4x2 = GL_DOUBLE_MAT4x2 , //!< dmat4x2
     //UT_DOUBLE_MAT4x3 = GL_DOUBLE_MAT4x3 , //!< dmat4x3
-
+#ifndef ORYOL_ANDROID
     UT_SAMPLER_1D = GL_SAMPLER_1D , //!< sampler1D
+#endif
     UT_SAMPLER_2D = GL_SAMPLER_2D , //!< sampler2D
     UT_SAMPLER_3D = GL_SAMPLER_3D , //!< sampler3D
     UT_SAMPLER_CUBE = GL_SAMPLER_CUBE , //!< samplerCube
+#ifndef ORYOL_ANDROID
     UT_SAMPLER_1D_SHADOW = GL_SAMPLER_1D_SHADOW , //!< sampler1DShadow
+#endif
     UT_SAMPLER_2D_SHADOW = GL_SAMPLER_2D_SHADOW , //!< sampler2DShadow
+#ifndef ORYOL_ANDROID
     UT_SAMPLER_1D_ARRAY = GL_SAMPLER_1D_ARRAY , //!< sampler1DArray
+#endif
     UT_SAMPLER_2D_ARRAY = GL_SAMPLER_2D_ARRAY , //!< sampler2DArray
+#ifndef ORYOL_ANDROID
     UT_SAMPLER_1D_ARRAY_SHADOW = GL_SAMPLER_1D_ARRAY_SHADOW , //!< sampler1DArrayShadow
+#endif
     UT_SAMPLER_2D_ARRAY_SHADOW = GL_SAMPLER_2D_ARRAY_SHADOW , //!< sampler2DArrayShadow
+#ifndef ORYOL_ANDROID
     UT_SAMPLER_2D_MULTISAMPLE = GL_SAMPLER_2D_MULTISAMPLE , //!< sampler2DMS
     UT_SAMPLER_2D_MULTISAMPLE_ARRAY = GL_SAMPLER_2D_MULTISAMPLE_ARRAY , //!< sampler2DMSArray
+#endif
     UT_SAMPLER_CUBE_SHADOW = GL_SAMPLER_CUBE_SHADOW , //!< samplerCubeShadow
+#ifndef ORYOL_ANDROID
     UT_SAMPLER_BUFFER = GL_SAMPLER_BUFFER , //!< samplerBuffer
     UT_SAMPLER_2D_RECT = GL_SAMPLER_2D_RECT , //!< sampler2DRect
     UT_SAMPLER_2D_RECT_SHADOW = GL_SAMPLER_2D_RECT_SHADOW , //!< sampler2DRectShadow
     UT_INT_SAMPLER_1D = GL_INT_SAMPLER_1D , //!< isampler1D
+#endif
     UT_INT_SAMPLER_2D = GL_INT_SAMPLER_2D , //!< isampler2D
     UT_INT_SAMPLER_3D = GL_INT_SAMPLER_3D , //!< isampler3D
     UT_INT_SAMPLER_CUBE = GL_INT_SAMPLER_CUBE , //!< isamplerCube
+#ifndef ORYOL_ANDROID
     UT_INT_SAMPLER_1D_ARRAY = GL_INT_SAMPLER_1D_ARRAY , //!< isampler1DArray
+#endif
     UT_INT_SAMPLER_2D_ARRAY = GL_INT_SAMPLER_2D_ARRAY , //!< isampler2DArray
+#ifndef ORYOL_ANDROID
     UT_INT_SAMPLER_2D_MULTISAMPLE = GL_INT_SAMPLER_2D_MULTISAMPLE , //!< isampler2DMS
     UT_INT_SAMPLER_2D_MULTISAMPLE_ARRAY = GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY , //!< isampler2DMSArray
     UT_INT_SAMPLER_BUFFER = GL_INT_SAMPLER_BUFFER , //!< isamplerBuffer
     UT_INT_SAMPLER_2D_RECT = GL_INT_SAMPLER_2D_RECT , //!< isampler2DRect
     UT_UNSIGNED_INT_SAMPLER_1D = GL_UNSIGNED_INT_SAMPLER_1D , //!< usampler1D
+#endif
     UT_UNSIGNED_INT_SAMPLER_2D = GL_UNSIGNED_INT_SAMPLER_2D , //!< usampler2D
     UT_UNSIGNED_INT_SAMPLER_3D = GL_UNSIGNED_INT_SAMPLER_3D , //!< usampler3D
     UT_UNSIGNED_INT_SAMPLER_CUBE = GL_UNSIGNED_INT_SAMPLER_CUBE , //!< usamplerCube
+#ifndef ORYOL_ANDROID
     UT_UNSIGNED_INT_SAMPLER_1D_ARRAY = GL_UNSIGNED_INT_SAMPLER_1D_ARRAY , //!< usampler2DArray
+#endif
     UT_UNSIGNED_INT_SAMPLER_2D_ARRAY = GL_UNSIGNED_INT_SAMPLER_2D_ARRAY , //!< usampler2DArray
+
+#ifndef ORYOL_ANDROID
     UT_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE , //!< usampler2DMS
     UT_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY = GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY , //!< usampler2DMSArray
     UT_UNSIGNED_INT_SAMPLER_BUFFER = GL_UNSIGNED_INT_SAMPLER_BUFFER , //!< usamplerBuffer
     UT_UNSIGNED_INT_SAMPLER_2D_RECT = GL_UNSIGNED_INT_SAMPLER_2D_RECT , //!< usampler2DRect
-
+#endif
     UT_UniformTypeCount
 
   } EUniformType;
@@ -1489,7 +1575,9 @@ namespace vl
     AT_UNSIGNED_INT_VEC2 = GL_UNSIGNED_INT_VEC2, //!< vec2
     AT_UNSIGNED_INT_VEC3 = GL_UNSIGNED_INT_VEC3, //!< vec3
     AT_UNSIGNED_INT_VEC4 = GL_UNSIGNED_INT_VEC4, //!< vec4
+#ifndef ORYOL_ANDROID
     AT_DOUBLE = GL_DOUBLE, //!< double
+#endif
     //AT_DOUBLE_VEC2 = GL_DOUBLE_VEC2, //!< dvec2
     //AT_DOUBLE_VEC3 = GL_DOUBLE_VEC3, //!< dvec3
     //AT_DOUBLE_VEC4 = GL_DOUBLE_VEC4, //!< dvec4

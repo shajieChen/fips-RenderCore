@@ -36,7 +36,7 @@
 
 #if defined(VL_OPENGL)
 
-  #if defined(VL_PLATFORM_WINDOWS)
+  #if defined(ORYOL_WINDOWS)
 
     #include <gl/gl.h>
     #include <gl/glu.h>
@@ -58,7 +58,13 @@
     #include <OpenGL/glu.h>
     #include <GL/khronos_glext.h>
 
-  #else
+  #elif defined(ORYOL_ANDROID)
+
+    #define GL_GLEXT_PROTOTYPES
+    #include <GLES3/gl3.h>
+    #include <GLES3/gl3ext.h>
+
+  #else 
 
     #error Unknown platform!
 
@@ -72,3 +78,4 @@
 #endif
 
 #endif
+//#ifndef ORYOL_ANDROID
