@@ -95,6 +95,8 @@ fips_begin_lib(RenderGraphic)
 		RenderCore/md5.c
 		RenderCore/md5.h
     	)
+
+	fips_deps(Gfx Assets)
 fips_end_lib() 
 
 
