@@ -31,4 +31,4 @@ exports:
     header-dirs:
         - RenderCore
     modules:
-        RenderCore:   .
+        RenderCore:   RenderCore/.
