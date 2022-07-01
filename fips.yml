@@ -28,4 +28,4 @@ imports:
          git: https://github.com/floooh/oryol.git
 exports: 
     modules:
-        RenderCore:   RenderCore
+        RenderCore:   .
