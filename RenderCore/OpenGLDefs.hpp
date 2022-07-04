@@ -33,7 +33,9 @@
 #define OpenGLDefs_INCLUDE_ONCE
  
 #include "checks.hpp"
+#if ORYOL_OPENGL
 #include <glad/include/glad/gl.h> 
+#endif
 #include "Gfx/private/gl/gl_impl.h" 
 
 /* Define NULL */
