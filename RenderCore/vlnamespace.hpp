@@ -37,8 +37,7 @@
 #ifndef vlnamespace_INCLUDE_ONCE
 #define vlnamespace_INCLUDE_ONCE
 
-//#include "OpenGLDefs.hpp"
-//#include "Gfx/private/flextgl/flextGL.h"
+#include "OpenGLDefs.hpp"
 #include "config.hpp" 
 namespace vl
 {

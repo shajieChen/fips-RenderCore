@@ -33,44 +33,7 @@
 #define OpenGLDefs_INCLUDE_ONCE
 
 #include "checks.hpp"
-
-#if defined(VL_OPENGL)
-
-  #if defined(ORYOL_WINDOWS)
-
-    #include <gl/gl.h>
-    #include <gl/glu.h>
-   // #include <GL/khronos_glext.h>
-    //#include <GL/khronos_wglext.h>
-
-  #elif defined(VL_PLATFORM_LINUX)
-
-    #include <GL/mesa_gl_1_1_only.h>
-    #include <GL/khronos_glext.h>
-    #include <GL/glu.h>
-    // No need to expose GLX functions for now
-    // #include <GL/khronos_glxext.h>
-    extern "C" { extern void ( * glXGetProcAddress (const GLubyte *procName)) (void); }
-
-  #elif defined(VL_PLATFORM_MACOSX)
-
-    #include <GL/mesa_gl_1_1_only.h>
-    #include <OpenGL/glu.h>
-    #include <GL/khronos_glext.h>
-
-  #elif defined(ORYOL_ANDROID)
-
-    #define GL_GLEXT_PROTOTYPES
-    #include <GLES3/gl3.h>
-    #include <GLES3/gl3ext.h>
-
-  #else 
-
-    #error Unknown platform!
-
-  #endif
-
-#endif
+#include "Gfx/private/gl/gl_impl.h" 
 
 /* Define NULL */
 #ifndef NULL
