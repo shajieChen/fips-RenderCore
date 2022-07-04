@@ -39,8 +39,8 @@ fips_begin_lib(RenderCore)
 		#GZipCodec.cpp                      
 		#GZipCodec.hpp                      
 		RenderCore/half.hpp                           
-		#Image.cpp                          
-		#Image.hpp                          
+		RenderCore/Image.cpp                          
+		RenderCore/Image.hpp                          
 		#ImageTools.hpp                     
 		RenderCore/IMutex.hpp                         
 		RenderCore/Interpolator.hpp                   

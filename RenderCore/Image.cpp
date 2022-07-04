@@ -29,22 +29,29 @@
 /*                                                                                    */
 /**************************************************************************************/
 
-#include <vlCore/Image.hpp>
+//#include <vlCore/Image.hpp>
+//#include "checks.hpp"
+//#include <vlCore/Say.hpp>
+//#include <vlCore/Log.hpp>
+//#include <vlCore/VisualizationLibrary.hpp>
+//#include <vlCore/FileSystem.hpp>
+//#include <vlCore/VirtualFile.hpp>
+//#include <vlCore/glsl_math.hpp>
+//#include <vlCore/ResourceDatabase.hpp>
+//#include <vlCore/LoadWriterManager.hpp>
+
+#include "Image.hpp"
 #include "checks.hpp"
-#include <vlCore/Say.hpp>
-#include <vlCore/Log.hpp>
-#include <vlCore/VisualizationLibrary.hpp>
-#include <vlCore/FileSystem.hpp>
-#include <vlCore/VirtualFile.hpp>
-#include <vlCore/glsl_math.hpp>
-#include <vlCore/ResourceDatabase.hpp>
-#include <vlCore/LoadWriterManager.hpp>
+#include "Core/Log.h" 
+
+
 
 #include <map>
 #include <cmath>
+#include "glsl_math.hpp"
 
 using namespace vl;
-
+#ifndef ORYOL_ANDROID
 //-----------------------------------------------------------------------------
 // Image
 //-----------------------------------------------------------------------------
@@ -82,7 +89,7 @@ Image::Image( const String& path )
   mPixels = new Buffer;
   reset();
 
-  setObjectName(path.toStdString().c_str());
+  setObjectName(path.AsCStr());
   ref<Image> img = loadImage(path);
   if (!img)
   {
@@ -150,12 +157,15 @@ bool Image::isValid() const
   {
     default:
     break;
-
+#ifndef ORYOL_ANDROID
     case IT_UNSIGNED_BYTE:
+#endif 
     case IT_BYTE:
     case IT_UNSIGNED_SHORT:
     case IT_SHORT:
+#ifndef ORYOL_ANDROID
     case IT_UNSIGNED_INT:
+#endif
     case IT_INT:
     case IT_FLOAT:
     {
@@ -215,8 +225,10 @@ bool Image::isValid() const
     {
       switch(type())
       {
+#ifndef ORYOL_ANDROID
         case IT_FLOAT_32_UNSIGNED_INT_24_8_REV:
         case IT_UNSIGNED_INT_24_8:
+#endif  
           okformat = true;
         default:
         break;
@@ -226,6 +238,7 @@ bool Image::isValid() const
 
     // three components types
 
+#ifndef ORYOL_ANDROID
     case IF_RGB:
     case IF_BGR:
     {
@@ -249,15 +262,19 @@ bool Image::isValid() const
       }
       break;
     }
+#endif 
 
     // four components types
 
+#ifndef ORYOL_ANDROID
     case IF_RGBA:
     case IF_BGRA:
     {
       switch(type())
       {
+#ifndef ORYOL_ANDROID
         case IT_UNSIGNED_SHORT_4_4_4_4:
+#endif
         case IT_UNSIGNED_SHORT_4_4_4_4_REV:
         case IT_UNSIGNED_SHORT_5_5_5_1:
         case IT_UNSIGNED_SHORT_1_5_5_5_REV:
@@ -276,11 +293,12 @@ bool Image::isValid() const
         }
       }
     }
+#endif
   }
 
   #ifndef NDEBUG
     bool isvalid = okformat && (x|y|z) && (pitch() % mByteAlign == 0);
-    Log::debug( isvalid ? "" : ( okformat ? "Image::isValid(): invalid dimensions or pitch/bytealign combination:\n" : "Image::isValid() reported an invalid format/type combination:\n") + print() );
+    //o_dbg( isvalid ? "" : ( okformat ? "Image::isValid(): invalid dimensions or pitch/bytealign combination:\n" : "Image::isValid() reported an invalid format/type combination:\n") + print() );
   #endif
 
   return okformat && (x|y|z) && (pitch() % mByteAlign == 0);
@@ -291,13 +309,20 @@ String Image::printType() const
   std::map<int, const char*> ty;
 
   ty[IT_IMPLICIT_TYPE] = "IT_IMPLICIT_TYPE";
+#ifndef  ORYOL_ANDROID
   ty[IT_UNSIGNED_BYTE] = "IT_UNSIGNED_BYTE";
+#endif
   ty[IT_BYTE] = "IT_BYTE";
+#ifndef  ORYOL_ANDROID
   ty[IT_UNSIGNED_SHORT] = "IT_UNSIGNED_SHORT";
+#endif
   ty[IT_SHORT] = "IT_SHORT";
+#ifndef  ORYOL_ANDROID
   ty[IT_UNSIGNED_INT] = "IT_UNSIGNED_INT";
+#endif
   ty[IT_INT] = "IT_INT";
   ty[IT_FLOAT] = "IT_FLOAT";
+#ifndef  ORYOL_ANDROID
   ty[IT_UNSIGNED_BYTE_3_3_2] = "IT_UNSIGNED_BYTE_3_3_2";
   ty[IT_UNSIGNED_BYTE_2_3_3_REV] = "IT_UNSIGNED_BYTE_2_3_3_REV";
   ty[IT_UNSIGNED_SHORT_5_6_5] = "IT_UNSIGNED_SHORT_5_6_5";
@@ -314,6 +339,7 @@ String Image::printType() const
   ty[IT_UNSIGNED_INT_10F_11F_11F_REV] = "IT_UNSIGNED_INT_10F_11F_11F_REV";
   ty[IT_UNSIGNED_INT_24_8] = "IT_UNSIGNED_INT_24_8";
   ty[IT_FLOAT_32_UNSIGNED_INT_24_8_REV] = "IT_FLOAT_32_UNSIGNED_INT_24_8_REV";
+#endif // ! ORYOL_ANDROID
 
   VL_CHECK(ty[type()] != NULL)
 
@@ -323,6 +349,7 @@ String Image::printType() const
 String Image::printFormat() const
 {
   std::map<int, const char*> fo;
+#ifndef ORYOL_ANDROID
 
   fo[IF_RGB] = "IF_RGB";
   fo[IF_RGBA] = "IF_RGBA";
@@ -342,6 +369,8 @@ String Image::printFormat() const
   fo[IF_COMPRESSED_RGBA_S3TC_DXT3] = "IF_COMPRESSED_RGBA_S3TC_DXT3";
   fo[IF_COMPRESSED_RGBA_S3TC_DXT5] = "IF_COMPRESSED_RGBA_S3TC_DXT5";
 
+#endif // !ORYOL_ANDROID
+
   VL_CHECK( fo[format()] != NULL );
 
   return fo[format()];
@@ -349,24 +378,17 @@ String Image::printFormat() const
 //-----------------------------------------------------------------------------
 String Image::print() const
 {
-  return Say(
-  "name   = %s\n"
-  "width  = %n\n"
-  "height = %n\n"
-  "depth  = %n\n"
-  "format = %s\n"
-  "type   = %s\n"
-  "pitch  = %n\n"
-  "bytealign = %n\n"
-  )
-  << objectName().c_str()
-  << width()
-  << height()
-  << depth()
-  << printFormat()
-  << printType()
-  << pitch()
-  << byteAlignment();
+  //return String(
+  //"name   = %s\n ,width  = %d\n ,height = %d\n ,depth  = %d\n ,format = %s\n ,type   = %s\n ,pitch  = %d\n ,bytealign = %d\n"
+  //, objectName().c_str()
+  //, width()
+  //, height()
+  //, depth()
+  //, printFormat()
+  //, printType()
+  //, pitch()
+  //, byteAlignment()); 
+    return NULL; 
 }
 //-----------------------------------------------------------------------------
 EImageDimension Image::dimension() const
@@ -388,6 +410,7 @@ int Image::bitsPerPixel(EImageType type, EImageFormat format)
     default:
     break;
 
+#ifndef ORYOL_ANDROID
     case IT_UNSIGNED_BYTE:  comp_size = sizeof(unsigned char)  * 8; break;
     case IT_BYTE:           comp_size = sizeof(GLbyte)   * 8; break;
     case IT_UNSIGNED_SHORT: comp_size = sizeof(GLushort) * 8; break;
@@ -395,11 +418,10 @@ int Image::bitsPerPixel(EImageType type, EImageFormat format)
     case IT_UNSIGNED_INT:   comp_size = sizeof(unsigned int)   * 8; break;
     case IT_INT:            comp_size = sizeof(int)    * 8; break;
     case IT_FLOAT:          comp_size = sizeof(float)  * 8; break;
-
     case IT_UNSIGNED_BYTE_3_3_2:          return 8;
-    case IT_UNSIGNED_BYTE_2_3_3_REV:      return 8;
+    case IT_UNSIGNED_BYTE_2_3_3_REV:      return 8; 
     case IT_UNSIGNED_SHORT_5_6_5:         return 16;
-    case IT_UNSIGNED_SHORT_5_6_5_REV:     return 16;
+    case IT_UNSIGNED_SHORT_5_6_5_REV:     return 16; 
     case IT_UNSIGNED_SHORT_4_4_4_4:       return 16;
     case IT_UNSIGNED_SHORT_4_4_4_4_REV:   return 16;
     case IT_UNSIGNED_SHORT_5_5_5_1:       return 16;
@@ -412,6 +434,8 @@ int Image::bitsPerPixel(EImageType type, EImageFormat format)
     case IT_UNSIGNED_INT_10F_11F_11F_REV: return 32; /* EXT_packed_float, supports only IF_RGB */
     case IT_UNSIGNED_INT_24_8:            return 32; /* EXT_packed_depth_stencil, supports only IF_DEPTH_STENCIL */
     case IT_FLOAT_32_UNSIGNED_INT_24_8_REV: return 64; /* EXT_depth_buffer_float, supports only IF_DEPTH_STENCIL */
+
+#endif 
   }
 
   switch(format)
@@ -421,15 +445,20 @@ int Image::bitsPerPixel(EImageType type, EImageFormat format)
     case IF_BLUE:            return comp_size * 1;
     case IF_ALPHA:           return comp_size * 1;
     case IF_DEPTH_COMPONENT: return comp_size * 1;
+#ifndef ORYOL_ANDROID
     case IF_STENCIL_INDEX:   return comp_size * 1;
+#endif
     case IF_LUMINANCE:       return comp_size * 1;
     case IF_LUMINANCE_ALPHA: return comp_size * 2;
     case IF_DEPTH_STENCIL:   return comp_size * 0;
+#ifndef ORYOL_ANDROID
     case IF_RG:              return comp_size * 2;
     case IF_RGB:             return comp_size * 3;
     case IF_BGR:             return comp_size * 3;
     case IF_RGBA:            return comp_size * 4;
     case IF_BGRA:            return comp_size * 4;
+#endif // !ORYOL_ANDROID
+
 
      // compressed formats
 
@@ -457,15 +486,18 @@ int Image::alphaBits() const
     case IF_BLUE:            return comp_size * 0;
     case IF_ALPHA:           return comp_size * 1;
     case IF_DEPTH_COMPONENT: return comp_size * 0;
+#ifndef ORYOL_ANDROID
     case IF_STENCIL_INDEX:   return comp_size * 0;
+#endif 
     case IF_LUMINANCE:       return comp_size * 0;
     case IF_LUMINANCE_ALPHA: return comp_size * 1;
     case IF_DEPTH_STENCIL:   return comp_size * 0;
     case IF_RGB:             return comp_size * 0;
     case IF_BGR:             return comp_size * 0;
     case IF_RGBA:            return comp_size * 1;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:            return comp_size * 1;
-
+#endif
      // compressed formats
 
     case IF_COMPRESSED_RGB_S3TC_DXT1:  return 0; // 8 bytes (64 bits) per block per 16 pixels
@@ -489,11 +521,13 @@ int Image::alphaBits() const
     case IT_INT:            comp_size = sizeof(int)    * 8; break;
     case IT_FLOAT:          comp_size = sizeof(float)  * 8; break;
 
+#ifndef ORYOL_ANDROID
     case IT_UNSIGNED_BYTE_3_3_2:          return 0;
     case IT_UNSIGNED_BYTE_2_3_3_REV:      return 0;
     case IT_UNSIGNED_SHORT_5_6_5:         return 0;
     case IT_UNSIGNED_SHORT_5_6_5_REV:     return 0;
     case IT_UNSIGNED_SHORT_4_4_4_4:       return 4;
+#endif 
     case IT_UNSIGNED_SHORT_4_4_4_4_REV:   return 4;
     case IT_UNSIGNED_SHORT_5_5_5_1:       return 1;
     case IT_UNSIGNED_SHORT_1_5_5_5_REV:   return 1;
@@ -503,7 +537,10 @@ int Image::alphaBits() const
     case IT_UNSIGNED_INT_2_10_10_10_REV:  return 2;
     case IT_UNSIGNED_INT_5_9_9_9_REV:     return 0; /* EXT_texture_shared_exponent, support only GL_RGB */
     case IT_UNSIGNED_INT_10F_11F_11F_REV: return 0; /* EXT_packed_float, supports only GL_RGB */
+
+#ifndef ORYOL_ANDROID
     case IT_UNSIGNED_INT_24_8:            return 0; /* EXT_packed_depth_stencil, supports only GL_DEPTH_STENCIL */
+#endif
     case IT_FLOAT_32_UNSIGNED_INT_24_8_REV: return 0; /* EXT_depth_buffer_float, supports only IF_DEPTH_STENCIL */
   }
 
@@ -597,7 +634,7 @@ void Image::allocate1D(int x, EImageFormat format, EImageType type)
   mIsCubemap = false;
 
   if ( ! requiredMemory() ) {
-    Log::bug("Image::allocate1D() failed, probably your image settings are invalid.\n");
+    o_dbg("Image::allocate1D() failed, probably your image settings are invalid.\n");
   } else {
     if ( mPixels->allocationMode() == vl::Buffer::AutoAllocatedBuffer ) {
       mPixels->resize( requiredMemory() );
@@ -620,7 +657,7 @@ void Image::allocate2D(int x, int y, int bytealign, EImageFormat format, EImageT
   mIsCubemap = false;
 
   if ( ! requiredMemory() ) {
-    Log::bug("Image::allocate2D() failed, probably your image settings are invalid.\n");
+    o_dbg("Image::allocate2D() failed, probably your image settings are invalid.\n");
   } else {
     if ( mPixels->allocationMode() == vl::Buffer::AutoAllocatedBuffer ) {
       mPixels->resize( requiredMemory() );
@@ -644,7 +681,7 @@ void Image::allocate3D(int x, int y, int z, int bytealign, EImageFormat format, 
   mIsCubemap = false;
 
   if ( ! requiredMemory() ) {
-    Log::bug("Image::allocate3D() failed, probably your image settings are invalid.\n");
+    o_dbg("Image::allocate3D() failed, probably your image settings are invalid.\n");
   } else {
     if ( mPixels->allocationMode() == vl::Buffer::AutoAllocatedBuffer ) {
       mPixels->resize( requiredMemory() );
@@ -665,7 +702,7 @@ void Image::allocateCubemap(int x, int y, int bytealign, EImageFormat format, EI
   mIsCubemap = true;
 
   if ( ! requiredMemory() ) {
-    Log::bug("Image::allocateCubemap() failed, probably your image settings are invalid.\n");
+    o_dbg("Image::allocateCubemap() failed, probably your image settings are invalid.\n");
   } else {
     if ( mPixels->allocationMode() == vl::Buffer::AutoAllocatedBuffer ) {
       mPixels->resize( requiredMemory() );
@@ -868,7 +905,7 @@ ref<Image> vl::createCubemap(const Image* xp, const Image* xn, const Image* yp, 
   // check they are square (later we check they have the same size)
   if (img[0]->width() != img[0]->height())
   {
-    Log::error("Cubemap creation failed: all the images must be square.\n");
+    o_error("Cubemap creation failed: all the images must be square.\n");
     return NULL;
   }
 
@@ -876,49 +913,49 @@ ref<Image> vl::createCubemap(const Image* xp, const Image* xn, const Image* yp, 
   {
     if (img[i] == NULL || !img[i]->isValid() || img[i]->pixels() == NULL || img[i]->dimension() != 2)
     {
-      Log::error("Cubemap creation failed: one or more image is invalid (could be NULL, not allocated, not 2D, wrong internal_ configuration or other).\n");
+      o_error("Cubemap creation failed: one or more image is invalid (could be NULL, not allocated, not 2D, wrong internal_ configuration or other).\n");
       return NULL;
     }
 
     // check that they have the same size
     if (img[0]->width() != img[i]->width())
     {
-      Log::error("Cubemap creation failed: the faces of the cube must have the very same dimensions.\n");
+      o_error("Cubemap creation failed: the faces of the cube must have the very same dimensions.\n");
       return NULL;
     }
 
     // check that they have the same size
     if (img[0]->height() != img[i]->height())
     {
-      Log::error("Cubemap creation failed: the faces of the cube must have the very same dimensions.\n");
+      o_error("Cubemap creation failed: the faces of the cube must have the very same dimensions.\n");
       return NULL;
     }
 
     // check that they have the same format
     if (img[0]->format() != img[i]->format())
     {
-      Log::error("Cubemap creation failed: the faces of the cube must have the very same format.\n");
+      o_error("Cubemap creation failed: the faces of the cube must have the very same format.\n");
       return NULL;
     }
 
     // check that they have the same type
     if (img[0]->type() != img[i]->type())
     {
-      Log::error("Cubemap creation failed: the faces of the cube must have the very same type.\n");
+      o_error("Cubemap creation failed: the faces of the cube must have the very same type.\n");
       return NULL;
     }
 
     // check that they have the same byte alignment
     if (img[0]->byteAlignment() != img[i]->byteAlignment())
     {
-      Log::error("Cubemap creation failed: the faces of the cube must have the very same byte alignment.\n");
+      o_error("Cubemap creation failed: the faces of the cube must have the very same byte alignment.\n");
       return NULL;
     }
 
     // check that they have the same required memory
     if (img[0]->requiredMemory() != img[i]->requiredMemory())
     {
-      Log::error("Cubemap creation failed: the faces of the cube must require the very same amount of memory.\n");
+      o_error("Cubemap creation failed: the faces of the cube must require the very same amount of memory.\n");
       return NULL;
     }
   }
@@ -1179,82 +1216,87 @@ ref<Image> vl::assemble3DImage(const std::vector< ref<Image> >& images)
 bool vl::loadImagesFromDir(const String& dir_path, const String& ext, std::vector< ref<Image> >& images)
 {
   images.clear();
-  if (ext.empty() || dir_path.empty())
+  if (ext.IsValid() || dir_path.IsValid())
     return false;
-  ref<VirtualDirectory> dir = defFileSystem()->locateDirectory(dir_path);
-  if (!dir)
-    return false;
-  std::vector<String> files;
-  dir->listFiles(files);
-  std::sort(files.begin(), files.end());
-  for(unsigned i=0; i<files.size(); ++i)
-  {
-    if (files[i].extractFileExtension().toLowerCase() == ext.toLowerCase())
-    {
-      images.push_back( loadImage(files[i]) );
-      if (images.back().get() == NULL)
-        return false;
-    }
-  }
-  return true;
+  //ref<VirtualDirectory> dir = defFileSystem()->locateDirectory(dir_path);
+  //if (!dir)
+  //  return false;
+  //std::vector<String> files;
+  //dir->listFiles(files);
+  //std::sort(files.begin(), files.end());
+  //for(unsigned i=0; i<files.size(); ++i)
+  //{
+  //  if (files[i].extractFileExtension().toLowerCase() == ext.toLowerCase())
+  //  {
+  //    images.push_back( loadImage(files[i]) );
+  //    if (images.back().get() == NULL)
+  //      return false;
+  //  }
+  //}
+  //return true;
+  return true; 
 }
 //-----------------------------------------------------------------------------
 ref<Image> vl::loadImage( const String& path )
 {
-  ref<VirtualFile> file = defFileSystem()->locateFile(path);
+  /*ref<VirtualFile> file = defFileSystem()->locateFile(path);
   if ( !file )
   {
-    Log::error( Say("File '%s' not found.\n") << path );
+    o_error( Say("File '%s' not found.\n") << path );
     return NULL;
   }
   else
-    return loadImage(file.get());
+    return loadImage(file.get());*/
+    return NULL; 
 }
 //-----------------------------------------------------------------------------
 ref<Image> vl::loadImage( VirtualFile* file )
 {
-  ref<ResourceDatabase> res_db = defLoadWriterManager()->loadResource(file);
+  //ref<ResourceDatabase> res_db = defLoadWriterManager()->loadResource(file);
 
-  if (!res_db)
-  {
-    Log::error( Say("vl::loadImage('%s') failed.\n") << file->path() );
-    return NULL;
-  }
+  //if (!res_db)
+  //{
+  //  o_error( Say("vl::loadImage('%s') failed.\n") << file->path() );
+  //  return NULL;
+  //}
 
-  ref<Image> img;
+  //ref<Image> img;
 
-  img = res_db->get<Image>(0);
+  //img = res_db->get<Image>(0);
 
-  VL_CHECK( !file->isOpen() )
-  file->close();
+  //VL_CHECK( !file->isOpen() )
+  //file->close();
 
-  if (img)
-  {
-    img->setObjectName( file->path().toStdString().c_str() );
-    img->setFilePath( file->path() );
-  }
+  //if (img)
+  //{
+  //  img->setObjectName( file->path().toStdString().c_str() );
+  //  img->setFilePath( file->path() );
+  //}
 
-  return img;
+  //return img;
+    return NULL;  
 }
 //-----------------------------------------------------------------------------
 bool vl::saveImage( Image* img, const String& path)
 {
-  ref<ResourceDatabase> res_db = new ResourceDatabase;
-  res_db->resources().push_back(img);
-  bool ok = defLoadWriterManager()->writeResource(path, res_db.get());
-  if (!ok)
-    Log::error( Say("vl::saveImage('%s') failed.\n") << path );
-  return ok;
+  //ref<ResourceDatabase> res_db = new ResourceDatabase;
+  //res_db->resources().push_back(img);
+  //bool ok = defLoadWriterManager()->writeResource(path, res_db.get());
+  //if (!ok)
+  //  o_error( Say("vl::saveImage('%s') failed.\n") << path );
+  //return ok;
+    return true; 
 }
 //-----------------------------------------------------------------------------
 bool vl::saveImage( Image* img, VirtualFile* file )
 {
-  ref<ResourceDatabase> res_db = new ResourceDatabase;
-  res_db->resources().push_back(img);
-  bool ok = defLoadWriterManager()->writeResource(file, res_db.get());
-  if (!ok)
-    Log::error( Say("vl::saveImage('%s') failed.\n") << file->path() );
-  return ok;
+  //ref<ResourceDatabase> res_db = new ResourceDatabase;
+  //res_db->resources().push_back(img);
+  //bool ok = defLoadWriterManager()->writeResource(file, res_db.get());
+  //if (!ok)
+  //  o_error( Say("vl::saveImage('%s') failed.\n") << file->path() );
+  //return ok;
+    return true; 
 }
 //-----------------------------------------------------------------------------
 ref<Image> vl::loadCubemap(const String& xp_file, const String& xn_file, const String& yp_file, const String& yn_file, const String& zp_file, const String& zn_file)
@@ -1268,7 +1310,7 @@ ref<Image> vl::loadCubemap(const String& xp_file, const String& xn_file, const S
 
   if (!xp || !xn || !yp || !yn || !zp || !zn)
   {
-    Log::error("vl::loadCubemap() failed.\n");
+    o_error("vl::loadCubemap() failed.\n");
     return NULL;
   }
 
@@ -1279,25 +1321,26 @@ ref<Image> vl::loadCubemap(const String& xp_file, const String& xn_file, const S
 //-----------------------------------------------------------------------------
 ref<Image> vl::loadRAW(VirtualFile* file, long long file_offset, int width, int height, int depth, int bytealign, EImageFormat format, EImageType type)
 {
-  ref<Image> img = new Image(width, height, depth, bytealign, format, type);
-  if ( file->isOpen() || file->open(OM_ReadOnly) )
-  {
-    bool ok = file_offset == -1 || file->seekSet(file_offset);
-    if (!ok)
-    {
-      Log::error( Say("loadRAW('%s'): seek set to position %n failed.\n") << file_offset );
-      return NULL;
-    }
-    int count = (int)file->read( img->pixels(), img->requiredMemory() );
-    if (count != img->requiredMemory())
-      Log::error( Say("loadRAW('%s'): error reading RAW file.\n") << file->path() );
-    return img;
-  }
-  else
-  {
-    Log::error( Say("loadRAW('%s'): could not open file for reading.\n") << file->path() );
-    return NULL;
-  }
+  //ref<Image> img = new Image(width, height, depth, bytealign, format, type);
+  //if ( file->isOpen() || file->open(OM_ReadOnly) )
+  //{
+  //  bool ok = file_offset == -1 || file->seekSet(file_offset);
+  //  if (!ok)
+  //  {
+  //    o_error( Say("loadRAW('%s'): seek set to position %n failed.\n") << file_offset );
+  //    return NULL;
+  //  }
+  //  int count = (int)file->read( img->pixels(), img->requiredMemory() );
+  //  if (count != img->requiredMemory())
+  //    o_error( Say("loadRAW('%s'): error reading RAW file.\n") << file->path() );
+  //  return img;
+  //}
+  //else
+  //{
+  //  o_error( Say("loadRAW('%s'): could not open file for reading.\n") << file->path() );
+  //  return NULL;
+  //}
+    return NULL; 
 }
 //-----------------------------------------------------------------------------
 ref<Image> vl::Image::convertType(EImageType new_type) const
@@ -1313,7 +1356,7 @@ ref<Image> vl::Image::convertType(EImageType new_type) const
     case IT_FLOAT:
       break;
     default:
-      Log::error("Image::convertType(): unsupported source image type.\n");
+      o_error("Image::convertType(): unsupported source image type.\n");
       return NULL;
   }
 
@@ -1328,7 +1371,7 @@ ref<Image> vl::Image::convertType(EImageType new_type) const
     case IT_FLOAT:
       break;
     default:
-      Log::error("Image::convertType(): unsupported destination image type.\n");
+      o_error("Image::convertType(): unsupported destination image type.\n");
       return NULL;
   }
 
@@ -1336,8 +1379,10 @@ ref<Image> vl::Image::convertType(EImageType new_type) const
   {
     case IF_RGB:
     case IF_RGBA:
+#ifndef  ORYOL_ANDROID 
     case IF_BGR:
     case IF_BGRA:
+#endif // ! ORYOL_ANDROID
     case IF_RED:
     case IF_GREEN:
     case IF_BLUE:
@@ -1347,7 +1392,7 @@ ref<Image> vl::Image::convertType(EImageType new_type) const
     case IF_DEPTH_COMPONENT:
       break;
     default:
-      Log::error("Image::convertType(): unsupported image format.\n");
+      o_error("Image::convertType(): unsupported image format.\n");
       return NULL;
   }
 
@@ -1367,10 +1412,12 @@ ref<Image> vl::Image::convertType(EImageType new_type) const
   int components = 0;
   switch(format())
   {
+#ifndef ORYOL_ANDROID
     case IF_RGB:   components = 3; break;
     case IF_RGBA:  components = 4; break;
     case IF_BGR:   components = 3; break;
     case IF_BGRA:  components = 4; break;
+#endif
     case IF_RED:   components = 1; break;
     case IF_GREEN: components = 1; break;
     case IF_BLUE:  components = 1; break;
@@ -1425,7 +1472,9 @@ ref<Image> vl::Image::convertType(EImageType new_type) const
           case IT_BYTE:           qint = *srcSByte;  dval = qint/127.0; ++srcSByte; break;
           case IT_UNSIGNED_SHORT: qint = *srcUShort; dval = qint/65535.0; ++srcUShort; break;
           case IT_SHORT:          qint = *srcSShort; dval = qint/32767.0; ++srcSShort; break;
+#ifndef ORYOL_ANDROID
           case IT_UNSIGNED_INT:   qint = *srcUInt;   dval = qint/4294967295.0; ++srcUInt; break;
+#endif // !ORYOL_ANDROID
           case IT_INT:            qint = *srcSInt;   dval = qint/2147483647.0; ++srcSInt; break;
           case IT_FLOAT:          dval = *srcFloat;  ++srcFloat; break;
           default:
@@ -1500,7 +1549,9 @@ bool Image::equalize()
     case IF_RGB:   comps = 3; break;
     case IF_RGBA:  comps = 4; break;
     case IF_BGR:   comps = 3; break;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:  comps = 4; break;
+#endif
     case IF_RED:   comps = 1; break;
     case IF_GREEN: comps = 1; break;
     case IF_BLUE:  comps = 1; break;
@@ -1509,7 +1560,7 @@ bool Image::equalize()
     case IF_LUMINANCE_ALPHA: comps = 2; break;
     case IF_DEPTH_COMPONENT: comps = 1; break;
     default:
-      Log::error("Image::equalize(): unsupported image format().\n");
+      o_error("Image::equalize(): unsupported image format().\n");
       return false;
   }
   int w = width();
@@ -1528,7 +1579,7 @@ bool Image::equalize()
     case IT_FLOAT:          equalizeTemplate<float>         (pixels(), pitch(), comps, w, h, 1.0f);       break;
       break;
     default:
-      Log::error("Image::equalize(): unsupported image type(). Types supported are IT_UNSIGNED_BYTE, IT_UNSIGNED_SHORT, IT_UNSIGNED_INT, IT_FLOAT.\n");
+      o_error("Image::equalize(): unsupported image type(). Types supported are IT_UNSIGNED_BYTE, IT_UNSIGNED_SHORT, IT_UNSIGNED_INT, IT_FLOAT.\n");
       return false;
   }
   return true;
@@ -1559,17 +1610,18 @@ bool Image::contrastHounsfieldAuto()
   if ( !tags()->has("WindowCenter") || !tags()->has("WindowWidth") || !tags()->has("BitsStored") || !tags()->has("RescaleIntercept"))
     return false;
 
-  float center    = tags()->value("WindowCenter").toFloat();
-  float width     = tags()->value("WindowWidth").toFloat();
-  float range     = (1<<tags()->value("BitsStored").toInt()) - 1.0f;
-  float intercept = tags()->value("RescaleIntercept").toFloat();
-  float slope     = tags()->value("RescaleSlope").toFloat();
+  //float center    = tags()->value("WindowCenter").toFloat();
+  //float width     = tags()->value("WindowWidth").toFloat();
+  //float range     = (1<<tags()->value("BitsStored").toInt()) - 1.0f;
+  //float intercept = tags()->value("RescaleIntercept").toFloat();
+  //float slope     = tags()->value("RescaleSlope").toFloat();
 
   // Hounsfield units: -1000 = air, +1000 = solid bone
   // Transform from Hounsfield units to normalized 0..1 units
-  center = (center-intercept) / range / slope;
-  width  = width / range / slope;
-  return contrast( center-width/2.0f, center+width/2.0f );
+  //center = (center-intercept) / range / slope;
+  //width  = width / range / slope;
+  //return contrast( center-width/2.0f, center+width/2.0f );
+  return 0;
 }
 //-----------------------------------------------------------------------------
 /** The \p center and \p width parameters are in Hounsfield units.
@@ -1623,7 +1675,7 @@ bool Image::contrast(float black, float white)
     case IF_DEPTH_COMPONENT:
       break;
     default:
-      Log::error("Image::equalize(): unsupported image format().\n");
+      o_error("Image::equalize(): unsupported image format().\n");
       return false;
   }
   int w = width();
@@ -1642,7 +1694,7 @@ bool Image::contrast(float black, float white)
     case IT_FLOAT:          contrastTemplate<float>         (pixels(), pitch(), w, h, 1.0f, black, white);       break;
       break;
     default:
-      Log::error("Image::equalize(): unsupported image type(). Types supported are IT_UNSIGNED_BYTE, IT_UNSIGNED_SHORT, IT_UNSIGNED_INT, IT_FLOAT.\n");
+      o_error("Image::equalize(): unsupported image type(). Types supported are IT_UNSIGNED_BYTE, IT_UNSIGNED_SHORT, IT_UNSIGNED_INT, IT_FLOAT.\n");
       return false;
   }
   return true;
@@ -1729,7 +1781,7 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IT_FLOAT:
       break;
     default:
-      Log::error("Image::convertType(): unsupported image type.\n");
+      o_error("Image::convertType(): unsupported image type.\n");
       return NULL;
   }
 
@@ -1738,7 +1790,9 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_RGB:
     case IF_RGBA:
     case IF_BGR:
+#ifndef ORYOL_ANDROID
     case IF_BGRA:
+#endif
     case IF_RED:
     case IF_GREEN:
     case IF_BLUE:
@@ -1747,7 +1801,7 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_LUMINANCE_ALPHA:
       break;
     default:
-      Log::error("Image::convertType(): unsupported source image format.\n");
+      o_error("Image::convertType(): unsupported source image format.\n");
       return NULL;
   }
 
@@ -1756,7 +1810,9 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_RGB:
     case IF_RGBA:
     case IF_BGR:
+#ifndef ORYOL_ANDROID
     case IF_BGRA:
+#endif
     case IF_RED:
     case IF_GREEN:
     case IF_BLUE:
@@ -1765,7 +1821,7 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_LUMINANCE_ALPHA:
       break;
     default:
-      Log::error("Image::convertType(): unsupported destination image format.\n");
+      o_error("Image::convertType(): unsupported destination image format.\n");
       return NULL;
   }
 
@@ -1792,7 +1848,9 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_RGB:             srco.r = 0; srco.g = 1; srco.b = 2; break;
     case IF_RGBA:            srco.r = 0; srco.g = 1; srco.b = 2; srco.a = 3; break;
     case IF_BGR:             srco.r = 2; srco.g = 1; srco.b = 0; break;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:            srco.r = 2; srco.g = 1; srco.b = 0; srco.a = 3; break;
+#endif
     case IF_RED:             srco.r = 0; break;
     case IF_GREEN:           srco.g = 0; break;
     case IF_BLUE:            srco.b = 0; break;
@@ -1808,7 +1866,9 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_RGB:             dsto.r = 0; dsto.g = 1; dsto.b = 2; break;
     case IF_RGBA:            dsto.r = 0; dsto.g = 1; dsto.b = 2; dsto.a = 3; break;
     case IF_BGR:             dsto.r = 2; dsto.g = 1; dsto.b = 0; break;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:            dsto.r = 2; dsto.g = 1; dsto.b = 0; dsto.a = 3; break;
+#endif
     case IF_RED:             dsto.r = 0; break;
     case IF_GREEN:           dsto.g = 0; break;
     case IF_BLUE:            dsto.b = 0; break;
@@ -1825,7 +1885,9 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_RGB:   src_comp = 3; break;
     case IF_RGBA:  src_comp = 4; break;
     case IF_BGR:   src_comp = 3; break;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:  src_comp = 4; break;
+#endif
     case IF_RED:   src_comp = 1; break;
     case IF_GREEN: src_comp = 1; break;
     case IF_BLUE:  src_comp = 1; break;
@@ -1842,7 +1904,9 @@ ref<Image> vl::Image::convertFormat(EImageFormat new_format) const
     case IF_RGB:   dst_comp = 3; break;
     case IF_RGBA:  dst_comp = 4; break;
     case IF_BGR:   dst_comp = 3; break;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:  dst_comp = 4; break;
+#endif
     case IF_RED:   dst_comp = 1; break;
     case IF_GREEN: dst_comp = 1; break;
     case IF_BLUE:  dst_comp = 1; break;
@@ -2011,7 +2075,9 @@ fvec4 Image::sample(int x, int y, int z) const
     case IF_RGB:   comp = 3; break;
     case IF_RGBA:  comp = 4; break;
     case IF_BGR:   comp = 3; break;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:  comp = 4; break;
+#endif
     case IF_RED:   comp = 1; break;
     case IF_GREEN: comp = 1; break;
     case IF_BLUE:  comp = 1; break;
@@ -2068,7 +2134,9 @@ fvec4 Image::sample(int x, int y, int z) const
     case IF_RGB:   p = pixel; break;
     case IF_RGBA:  p = pixel; break;
     case IF_BGR:   p = pixel; p.r() = pixel.b(); p.b() = pixel.r(); break;
+#ifndef ORYOL_ANDROID
     case IF_BGRA:  p = pixel; p.r() = pixel.b(); p.b() = pixel.r(); break;
+#endif
     case IF_RED:   p = fvec4(pixel[0], 0, 0, 0); break;
     case IF_GREEN: p = fvec4(0, pixel[0], 0, 0); break;
     case IF_BLUE:  p = fvec4(0, 0, pixel[0], 0); break;
@@ -2130,12 +2198,12 @@ void Image::substituteColorRGB_RGBA(unsigned int before, unsigned int after)
 {
   if (type() != IT_UNSIGNED_BYTE)
   {
-    Log::error("Image::substituteColorRGB_RGBA(): this function can be called only on images whose type() is IT_UNSIGNED_BYTE\n");
+    o_error("Image::substituteColorRGB_RGBA(): this function can be called only on images whose type() is IT_UNSIGNED_BYTE\n");
     return;
   }
   if (format() != IF_RGBA && format() != IF_RGB)
   {
-    Log::error("Image::substituteColorRGB_RGBA(): this function can be called only on images whose format() is either IF_RGBA or IF_RGB\n");
+    o_error("Image::substituteColorRGB_RGBA(): this function can be called only on images whose format() is either IF_RGBA or IF_RGB\n");
     return;
   }
   unsigned char bef[3];
@@ -2172,12 +2240,12 @@ void Image::substituteColorRGB_RGB(unsigned int before, unsigned int after)
 {
   if (type() != IT_UNSIGNED_BYTE)
   {
-    Log::error("Image::substituteColorRGB_RGB(): this function can be called only on images whose type() is IT_UNSIGNED_BYTE\n");
+    o_error("Image::substituteColorRGB_RGB(): this function can be called only on images whose type() is IT_UNSIGNED_BYTE\n");
     return;
   }
   if (format() != IF_RGBA && format() != IF_RGB)
   {
-    Log::error("Image::substituteColorRGB_RGB(): this function can be called only on images whose format() is either IF_RGBA or IF_RGB\n");
+    o_error("Image::substituteColorRGB_RGB(): this function can be called only on images whose format() is either IF_RGBA or IF_RGB\n");
     return;
   }
   unsigned char bef[3];
@@ -2211,12 +2279,12 @@ void Image::substituteColorGreenKey(unsigned int col0, unsigned int col1)
 {
   if (type() != IT_UNSIGNED_BYTE)
   {
-    Log::error("Image::substituteColorRGB_RGB(): this function can be called only on images whose type() is IT_UNSIGNED_BYTE\n");
+    o_error("Image::substituteColorRGB_RGB(): this function can be called only on images whose type() is IT_UNSIGNED_BYTE\n");
     return;
   }
   if (format() != IF_RGBA && format() != IF_RGB)
   {
-    Log::error("Image::substituteColorRGB_RGB(): this function can be called only on images whose format() is either IF_RGBA or IF_RGB\n");
+    o_error("Image::substituteColorRGB_RGB(): this function can be called only on images whose format() is either IF_RGBA or IF_RGB\n");
     return;
   }
   unsigned char c0[3];
@@ -2244,3 +2312,5 @@ void Image::substituteColorGreenKey(unsigned int col0, unsigned int col1)
   }
 }
 //-----------------------------------------------------------------------------
+
+#endif

@@ -30,16 +30,14 @@
 /**************************************************************************************/
 
 #ifndef Image_INCUDE_ONCE
-#define Image_INCUDE_ONCE
-
-#include <vlCore/String.hpp>
-#include <vlCore/Buffer.hpp>
-#include <vlCore/Vector4.hpp>
-#include <vlCore/vlnamespace.hpp>
-#include <vlCore/Rect.hpp>
-#include <vlCore/KeyValues.hpp>
+#define Image_INCUDE_ONCE 
+#include "Buffer.hpp"
+#include "Vector4.hpp"
+#include "vlnamespace.hpp"
+#include "Rect.hpp"
+#include "KeyValues.hpp"
 #include <vector>
-
+using namespace Oryol;  
 namespace vl
 {
   class VirtualFile;
@@ -66,7 +64,7 @@ namespace vl
     Image(void* buffer_ptr, int buffer_bytes);
 
     //! Initializes the image reading from the give file path.
-    Image(const String& file_path);
+    Image(const Oryol::String& file_path);
 
     //! Initializes a 1D, 2D or 3D image. For 2D images `y` and `z` must be set to 0. For 3D images `z` must be set to 0.
     Image(int x, int y, int z, int bytealign, EImageFormat format, EImageType type);

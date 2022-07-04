@@ -39,7 +39,7 @@
   #ifdef VLCore_EXPORTS
     #define VLCORE_EXPORT __declspec(dllexport)
   #else
-    #define VLCORE_EXPORT __declspec(dllimport)
+    #define VLCORE_EXPORT  
   #endif
 #else
   #define VLCORE_EXPORT
